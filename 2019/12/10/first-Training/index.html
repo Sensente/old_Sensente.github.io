@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="训练赛,题解," />
 
 
 
@@ -86,14 +86,15 @@
 
 
 
-<meta name="description" content="“HELLO” “FROM EIRC.CHENG” “2019-11”">
+<meta name="description" content="#第一次训练赛">
+<meta name="keywords" content="训练赛,题解">
 <meta property="og:type" content="article">
-<meta property="og:title" content="From Beginning">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;09&#x2F;hello&#x2F;index.html">
+<meta property="og:title" content="First Training">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;10&#x2F;first-Training&#x2F;index.html">
 <meta property="og:site_name" content="Cheng&#39;s Blog">
-<meta property="og:description" content="“HELLO” “FROM EIRC.CHENG” “2019-11”">
+<meta property="og:description" content="#第一次训练赛">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-11-09T11:36:34.316Z">
+<meta property="og:updated_time" content="2019-12-28T03:27:40.981Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -124,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/11/09/hello/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/12/10/first-Training/"/>
 
 
 
 
 
-  <title>From Beginning | Cheng's Blog</title>
+  <title>First Training | Cheng's Blog</title>
   
 
 
@@ -291,7 +292,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/09/hello/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/10/first-Training/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Eric Cheng">
@@ -308,7 +309,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">From Beginning</h1>
+          <h1 class="post-title" itemprop="name headline">First Training</h1>
         
 
         <div class="post-meta">
@@ -320,8 +321,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-09T16:52:03+08:00">
-                2019-11-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-10T11:16:16+08:00">
+                2019-12-10
               </time>
             
 
@@ -389,9 +390,26 @@
       
 
       
-        <p>“HELLO”</p>
-<p>“FROM EIRC.CHENG”</p>
-<p>“2019-11”</p>
+        <p>#第一次训练赛</p>
+<a id="more"></a>
+
+<p>1.快速幂</p>
+<p>二进制快速幂</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ll <span class="title">qpow</span><span class="params">(ll a, ll b)</span> </span>&#123;</span><br><span class="line">    ll ans = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(b) &#123;</span><br><span class="line">        <span class="keyword">if</span>(b&amp;<span class="number">1</span>) ans = ans * a % mod;</span><br><span class="line">        a = a * a %mod;</span><br><span class="line">        b&gt;&gt;=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>十进制快速幂</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ll <span class="title">tqpow</span><span class="params">(ll a)</span> </span>&#123;</span><br><span class="line">    ll ans = <span class="number">1</span>, s = a;</span><br><span class="line">    <span class="keyword">while</span>(t&gt;=<span class="number">0</span>) &#123;</span><br><span class="line">        ll cnt = c[t] - <span class="string">'0'</span>, cur = s;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= cnt; i++)</span><br><span class="line">            ans = ans * s % mod;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; <span class="number">10</span>; i++)</span><br><span class="line">            cur = cur * s % mod;</span><br><span class="line">        s = cur;</span><br><span class="line">        ans %= mod;</span><br><span class="line">        t--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>例题：<a href="http://acm.hdu.edu.cn/showproblem.php?pid=1061" target="_blank" rel="noopener">http://acm.hdu.edu.cn/showproblem.php?pid=1061</a></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">1e5</span>+<span class="number">7</span>;</span><br><span class="line"><span class="keyword">char</span> c[MAXN];</span><br><span class="line">ll b,t;</span><br><span class="line">ll mod = <span class="number">10</span>;</span><br><span class="line"><span class="function">ll <span class="title">tqpow</span><span class="params">(ll a)</span> </span>&#123;</span><br><span class="line">    ll ans = <span class="number">1</span>, s = a;</span><br><span class="line">    <span class="keyword">while</span>(t&gt;=<span class="number">0</span>) &#123;</span><br><span class="line">        ll cnt = c[t] - <span class="string">'0'</span>, cur = s;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= cnt; i++)</span><br><span class="line">            ans = ans * s % mod;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; <span class="number">10</span>; i++)</span><br><span class="line">            cur = cur * s % mod;</span><br><span class="line">        s = cur;</span><br><span class="line">        ans %= mod;</span><br><span class="line">        t--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line">ll T;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; T;</span><br><span class="line">    <span class="keyword">while</span>(T--) &#123;</span><br><span class="line">       <span class="built_in">cin</span> &gt;&gt; c;</span><br><span class="line">       t = <span class="built_in">strlen</span>(c);</span><br><span class="line">        t--;</span><br><span class="line">        ll qq = <span class="number">1</span>;</span><br><span class="line">       b = <span class="number">0</span>;</span><br><span class="line">       <span class="keyword">for</span>(<span class="keyword">int</span> i = t; i&gt;=<span class="number">0</span>;i--) &#123;</span><br><span class="line">           b += qq * (c[i] - <span class="string">'0'</span>);</span><br><span class="line">           qq *= <span class="number">10</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="built_in">cout</span> &lt;&lt; tqpow(b)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.矩阵快速幂</p>
+<p>题目链接：<a href="http://acm.hdu.edu.cn/showproblem.php?pid=1575（求n*n矩阵的k次方%mod" target="_blank" rel="noopener">http://acm.hdu.edu.cn/showproblem.php?pid=1575（求n*n矩阵的k次方%mod</a>)</p>
+<p>矩阵快速幂AC</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">1e2</span>+<span class="number">7</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod = <span class="number">9973</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">martrix</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> a[MAXN][MAXN];</span><br><span class="line">&#125;m1,m2;</span><br><span class="line">ll n, k;</span><br><span class="line"><span class="function">martrix <span class="title">mul</span><span class="params">(martrix m1, martrix m2)</span> </span>&#123;</span><br><span class="line">    martrix m3;</span><br><span class="line">    <span class="built_in">memset</span>(m3.a, <span class="number">0</span>, <span class="keyword">sizeof</span> m3.a);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; j++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">1</span>;k &lt;= n; k++) &#123;</span><br><span class="line">                m3.a[i][j] += m1.a[i][k]*m2.a[k][j];</span><br><span class="line">                m3.a[i][j] %= mod;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> m3;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">martrix <span class="title">mpow</span><span class="params">(martrix m1)</span> </span>&#123;</span><br><span class="line">    martrix res;</span><br><span class="line">    <span class="built_in">memset</span>(res.a, <span class="number">0</span>, <span class="keyword">sizeof</span> res.a);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) res.a[i][i] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(k!=<span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span>(k%<span class="number">2</span>!=<span class="number">0</span>) &#123;</span><br><span class="line">            res = mul(res,m1);</span><br><span class="line">            k--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            m1 = mul(m1,m1);</span><br><span class="line">            k&gt;&gt;=<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> t;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; t;</span><br><span class="line">    <span class="keyword">while</span>(t--) &#123;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; k;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; j++) &#123;</span><br><span class="line">                <span class="built_in">cin</span> &gt;&gt; m1.a[i][j];</span><br><span class="line">                m1.a[i][j]%=mod;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        m2 = mpow(m1);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            sum += m2.a[i][i];</span><br><span class="line">            sum %= mod;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; sum &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>题目：<a href="http://acm.hdu.edu.cn/showproblem.php?pid=2157（本题见详解）" target="_blank" rel="noopener">http://acm.hdu.edu.cn/showproblem.php?pid=2157（本题见详解）</a></p>
+<p><a href="https://blog.csdn.net/Sensente/article/details/103234396" target="_blank" rel="noopener">https://blog.csdn.net/Sensente/article/details/103234396</a></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="keyword">char</span> s[<span class="number">50</span>+<span class="number">5</span>];</span><br><span class="line"><span class="keyword">int</span> num1, num0;</span><br><span class="line"><span class="keyword">int</span> onum1,onum0;</span><br><span class="line"><span class="keyword">int</span> lens;</span><br><span class="line"><span class="keyword">bool</span> f;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="keyword">if</span>(n == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; s;</span><br><span class="line">        <span class="keyword">int</span> len = <span class="built_in">strlen</span>(s);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>, j = len <span class="number">-1</span>; i&lt;len/<span class="number">2</span>,j&gt;len/<span class="number">2</span>;i++,j--) &#123;</span><br><span class="line">            <span class="keyword">if</span>(s[i] == s[j]) f = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">else</span> &#123;f = <span class="number">1</span>;<span class="keyword">break</span>;&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(f) <span class="built_in">cout</span> &lt;&lt; <span class="number">0</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="built_in">cout</span> &lt;&lt; <span class="number">1</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">int</span> k = n;</span><br><span class="line">        <span class="keyword">while</span>(k--) &#123;</span><br><span class="line">            <span class="built_in">cin</span> &gt;&gt; s;</span><br><span class="line">            <span class="keyword">int</span> len = <span class="built_in">strlen</span>(s);</span><br><span class="line">            lens += len/<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(s[i] == <span class="string">'0'</span>) num0++;</span><br><span class="line">                <span class="keyword">else</span> num1++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        num0 /= <span class="number">2</span>;</span><br><span class="line">        num1 /= <span class="number">2</span>;</span><br><span class="line">        <span class="comment">//cout &lt;&lt; lens &lt;&lt;" " &lt;&lt; num1 &lt;&lt; " "&lt;&lt;num0 &lt;&lt; endl;</span></span><br><span class="line">        <span class="keyword">if</span>(lens &lt;= num1 + num0) <span class="built_in">cout</span> &lt;&lt; n &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="built_in">cout</span> &lt;&lt; n<span class="number">-1</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -412,7 +430,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://yoursite.com/2019/11/09/hello/" title="From Beginning">http://yoursite.com/2019/11/09/hello/</a>
+    <a href="http://yoursite.com/2019/12/10/first-Training/" title="First Training">http://yoursite.com/2019/12/10/first-Training/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -425,6 +443,14 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/%E8%AE%AD%E7%BB%83%E8%B5%9B/" rel="tag"># 训练赛</a>
+          
+            <a href="/tags/%E9%A2%98%E8%A7%A3/" rel="tag"># 题解</a>
+          
+        </div>
+      
 
       
       
@@ -434,8 +460,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/11/09/hello-world/" rel="next" title="WELCOME">
-                <i class="fa fa-chevron-left"></i> WELCOME
+              <a href="/2019/11/09/hello/" rel="next" title="From Beginning">
+                <i class="fa fa-chevron-left"></i> From Beginning
               </a>
             
           </div>
@@ -444,8 +470,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/12/10/first-Training/" rel="prev" title="First Training">
-                First Training <i class="fa fa-chevron-right"></i>
+              <a href="/2019/12/20/DS-Notes-linear-list/" rel="prev" title="数据结构笔记——线性表">
+                数据结构笔记——线性表 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

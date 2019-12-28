@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="数据结构,学习笔记," />
 
 
 
@@ -86,14 +86,15 @@
 
 
 
-<meta name="description" content="“HELLO” “FROM EIRC.CHENG” “2019-11”">
+<meta name="description" content="Reference:《数据结构》 安徽大学出版社">
+<meta name="keywords" content="数据结构,学习笔记">
 <meta property="og:type" content="article">
-<meta property="og:title" content="From Beginning">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;09&#x2F;hello&#x2F;index.html">
+<meta property="og:title" content="数据结构笔记——线性表">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;20&#x2F;DS-Notes-linear-list&#x2F;index.html">
 <meta property="og:site_name" content="Cheng&#39;s Blog">
-<meta property="og:description" content="“HELLO” “FROM EIRC.CHENG” “2019-11”">
+<meta property="og:description" content="Reference:《数据结构》 安徽大学出版社">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-11-09T11:36:34.316Z">
+<meta property="og:updated_time" content="2019-12-28T03:42:45.042Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -124,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/11/09/hello/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/12/20/DS-Notes-linear-list/"/>
 
 
 
 
 
-  <title>From Beginning | Cheng's Blog</title>
+  <title>数据结构笔记——线性表 | Cheng's Blog</title>
   
 
 
@@ -291,7 +292,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/09/hello/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/20/DS-Notes-linear-list/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Eric Cheng">
@@ -308,7 +309,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">From Beginning</h1>
+          <h1 class="post-title" itemprop="name headline">数据结构笔记——线性表</h1>
         
 
         <div class="post-meta">
@@ -320,8 +321,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-09T16:52:03+08:00">
-                2019-11-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-20T07:40:15+08:00">
+                2019-12-20
               </time>
             
 
@@ -389,10 +390,82 @@
       
 
       
-        <p>“HELLO”</p>
-<p>“FROM EIRC.CHENG”</p>
-<p>“2019-11”</p>
+        <p>Reference:《数据结构》 安徽大学出版社</p>
+<a id="more"></a>
+<p>链表</p>
+<p>一、何谓链表</p>
+<p>链表是使用不连续的或连续的储存空间来存放线性表的数据元素。</p>
+<p>基本组成是： 结点。</p>
+<p>一个结点由 数据域 和 指针域 组成。</p>
+<p>因为元素之间通过指针的方式进行链接，故称之为链表。</p>
+<p>链表的第一个地址，即头指针 （head)</p>
+<p>单链表的存储描述：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> elementType;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">slNode</span>&#123;</span></span><br><span class="line">    elementType data;       <span class="comment">//数据域</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">slNode</span> *<span class="title">next</span>;</span>    <span class="comment">//指针域</span></span><br><span class="line">&#125;node, *linkList;</span><br></pre></td></tr></table></figure>
 
+
+
+<p>二、动态链表</p>
+<p>操作函数：malloc() free() &amp; new delete</p>
+<p>示：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">    node *p;</span><br><span class="line">    p = (node *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span> (node));</span><br><span class="line">    <span class="built_in">free</span>(p);</span><br><span class="line">    </span><br><span class="line">    node *q;</span><br><span class="line">    q = <span class="keyword">new</span> node;</span><br><span class="line">    <span class="keyword">delete</span> q;</span><br><span class="line">  ```  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">(p与p-&gt;next,p-&gt;next-&gt;next的关系）</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">三、带头结点的链表</span><br><span class="line"></span><br><span class="line">（为什么要使用带头结点的指针？）</span><br><span class="line"></span><br><span class="line">在插入元素的时候，存在着以下几种情况（配图无关）</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">情况一、<span class="number">2</span> &lt;= i &lt;= n;</span><br><span class="line"></span><br><span class="line">即插入元素的位置位于整张链表的中间</span><br><span class="line"></span><br><span class="line">也就是最为普遍的一种插入位置。</span><br><span class="line"></span><br><span class="line">设插入结点为s,前插结点为p</span><br><span class="line"></span><br><span class="line">则</span><br><span class="line">```C++</span><br><span class="line">s-&gt;next = p-&gt;next;</span><br><span class="line"></span><br><span class="line">p-&gt;next = s;</span><br></pre></td></tr></table></figure>
+
+<p>即可完成插入。（顺序务必不能颠倒）</p>
+<p>情况二、i = n + 1</p>
+<p>即在尾部插入结点。</p>
+<p>那么同样的，</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">s-&gt;next = p-&gt;next; 或者 s-&gt;next=<span class="literal">NULL</span>;（在整张表的最后面，当然是<span class="literal">NULL</span>）</span><br><span class="line"></span><br><span class="line">p-&gt;next = s;</span><br></pre></td></tr></table></figure>
+
+<p>（与情况一相同）</p>
+<p>情况三、i = 1;</p>
+<p>由于没有头结点，只有头指针（此时头指针指向第一个元素）</p>
+<p>因此我们需要更新头指针的指向。</p>
+<p>也就是</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">s-&gt;next = head;</span><br><span class="line"></span><br><span class="line">head = s;（头指针此刻变为s）</span><br></pre></td></tr></table></figure>
+
+
+<p>可见，第三种情况下的代码与 前两种有所差异，不方便统一化操作（删除的时候也会有影响）。</p>
+<p>此外，链表的头指针会随着元素在头部的插入而发生变化。</p>
+<p>因此，我们人为地额外在最前面加入一个结点，称之为 头结点（注意与头指针 区分）</p>
+<p>头结点类型与元素结点类型一致，让链表的头指针指向头结点，头结点的next指针，即head-&gt;next,指向首元素结点。</p>
+<p>加了头结点的链表叫做 带头结点链表</p>
+<p>而带头结点链表的空链表只需将头结点next = NULL即可。</p>
+<p>好处：</p>
+<p>加了头结点之后，所有操作只能在头结点之后进行，保证了所有位置上插入删除步骤的一致性。</p>
+<p>（该图非常重要，务必理解）</p>
+<p>四、链表的基本运算</p>
+<p>4.1初始化链表</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">initList</span><span class="params">(node * &amp;L)</span> </span>&#123;   <span class="comment">//指针的引用 由于需要返回一个指针</span></span><br><span class="line">    L = <span class="keyword">new</span> node;</span><br><span class="line">    L-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">iniList_1</span><span class="params">(node * *L)</span> </span>&#123;   <span class="comment">//指针的指针</span></span><br><span class="line">    (*L)= (node *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(node));</span><br><span class="line">    (*L)-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">node *<span class="title">initList_2</span><span class="params">()</span> </span>&#123;           <span class="comment">//指针的返回值</span></span><br><span class="line">    node *p;</span><br><span class="line">    p = (node*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(node));</span><br><span class="line">    p-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4.2求链表长度</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">listLength</span><span class="params">(node *L)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> len = <span class="number">0</span>;</span><br><span class="line">    node *p = L-&gt;next;</span><br><span class="line">    <span class="keyword">while</span>(p!=<span class="literal">NULL</span>) &#123;</span><br><span class="line">        len++;</span><br><span class="line">        p = p-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> len;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">listLength_1</span><span class="params">(node &amp;L)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> len = <span class="number">0</span>;</span><br><span class="line">    node *P = L.next;</span><br><span class="line">    <span class="keyword">while</span>(P!=<span class="literal">NULL</span>) &#123;</span><br><span class="line">        len++;</span><br><span class="line">        P=P-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> len;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>思考：</p>
+<p>若算法初始化的时候，p指向头结点，即p = L，而非首元素结点，如何修改？</p>
+<p>（提示：p-&gt;next!=NULL)</p>
+<p>4.3按序号取元素结点</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">node * <span class="title">getElement</span><span class="params">(node *L, <span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">    node *p = L-&gt;next;</span><br><span class="line">    <span class="keyword">int</span> j = i;</span><br><span class="line">    <span class="keyword">while</span>(j!=i &amp;&amp; p != <span class="literal">NULL</span>) &#123;</span><br><span class="line">        j++;</span><br><span class="line">        p = p-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>思考：如果取元素失败，返回值是？</p>
+<p>（提示：NULL）</p>
+<p>4.4按值查询元素</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">listLocate</span><span class="params">(node *L, elementType x)</span> </span>&#123;</span><br><span class="line">    node *p = L-&gt;next;</span><br><span class="line">    <span class="keyword">while</span>(p != <span class="literal">NULL</span> &amp;&amp; p-&gt;data != x) &#123;</span><br><span class="line">        p=p-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>  p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>4.5插入</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">listInsert</span><span class="params">(node *L, <span class="keyword">int</span> i, elementType x)</span></span>&#123;</span><br><span class="line">    node *p = L-&gt;next;</span><br><span class="line">    <span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(j != i<span class="number">-1</span> &amp;&amp; p != <span class="literal">NULL</span>) &#123;  <span class="comment">//while找到待插入结点的前一个结点</span></span><br><span class="line">        p=p-&gt;next;</span><br><span class="line">        j++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(p==<span class="literal">NULL</span>) <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">//0代表插入位置有错误</span></span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        node *s;                    <span class="comment">//待插入结点</span></span><br><span class="line">        s = <span class="keyword">new</span> node;</span><br><span class="line">        s-&gt;data = x;</span><br><span class="line">        s-&gt;next = p-&gt;next;</span><br><span class="line">        p-&gt;next = s;</span><br><span class="line">    &#125;       </span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;               <span class="comment">//1代表插入成功</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>请务必思考：为什么这里没有对插入位置一开始进行判断？</p>
+<p>（提示：因为不论是i&lt;1还是i&gt;=n+2, p结点最后都会到NULL，因此仅需判断p是否为NULL即可。）</p>
+<p>4.6删除</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">listDelete</span><span class="params">(node *L, <span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">    node *u;</span><br><span class="line">    node *p = L;</span><br><span class="line">    <span class="keyword">int</span> k = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(k != i<span class="number">-1</span> &amp;<span class="number">7</span> p != <span class="literal">NULL</span>) &#123;</span><br><span class="line">        p = p-&gt;next;</span><br><span class="line">        k++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(p == <span class="literal">NULL</span> || p-&gt;next == <span class="literal">NULL</span>) </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        u = p-&gt;next;</span><br><span class="line">        p-&gt;next = u-&gt;next;</span><br><span class="line">        <span class="keyword">delete</span> u;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>4.7链表的构造</p>
+<p>共有两种方式</p>
+<p>4.7.1 尾插法建立链表</p>
+<p>需要用一个额外的尾指针R，初始的时候R指向L，随着元素的插入R不断后移，始终指向最后一个元素。</p>
+<p>尾插法的插入顺序是按照原数据顺序的。</p>
+<p>4.7.2头插法建立链表</p>
+<p>由于头指针的存在，因此头插法并不需要额外的指针。</p>
+<p>头插法的插入后的顺序与原数据顺序相反。</p>
+<p>代码：//这里以-9999作为结束标识符。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//尾插法建立链表</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">createList</span><span class="params">(node * &amp;L)</span> </span>&#123;</span><br><span class="line">    elementType x;</span><br><span class="line">    node *u, * R;       <span class="comment">//R为尾指针</span></span><br><span class="line"></span><br><span class="line">    L = <span class="keyword">new</span> node;</span><br><span class="line">    R = L;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; x;</span><br><span class="line">    <span class="keyword">while</span>(x!=<span class="number">-9999</span>) &#123;</span><br><span class="line">        u = <span class="keyword">new</span> node;</span><br><span class="line">        u -&gt; data = x;</span><br><span class="line">        u -&gt;next = <span class="literal">NULL</span>; <span class="comment">// u-&gt;next = R -&gt; next;</span></span><br><span class="line">        R-&gt;next = u;        <span class="comment">//新的结点到链表尾部</span></span><br><span class="line">        R = u;              <span class="comment">//尾指针后移</span></span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; x;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//头插法建立链表</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">createList_2</span><span class="params">(node * &amp;L)</span> </span>&#123;</span><br><span class="line">    elementType x;</span><br><span class="line">    node *u;</span><br><span class="line">    L = <span class="keyword">new</span> node;</span><br><span class="line">    L -&gt; next = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; x;</span><br><span class="line">    <span class="keyword">while</span>(x!=<span class="number">-9999</span>) &#123;</span><br><span class="line">        u = <span class="keyword">new</span> node;</span><br><span class="line">        u -&gt;data = x;</span><br><span class="line">        u -&gt;next = L -&gt;next;</span><br><span class="line">        L -&gt;next = u;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; x;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -412,7 +485,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://yoursite.com/2019/11/09/hello/" title="From Beginning">http://yoursite.com/2019/11/09/hello/</a>
+    <a href="http://yoursite.com/2019/12/20/DS-Notes-linear-list/" title="数据结构笔记——线性表">http://yoursite.com/2019/12/20/DS-Notes-linear-list/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -425,6 +498,14 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag"># 数据结构</a>
+          
+            <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag"># 学习笔记</a>
+          
+        </div>
+      
 
       
       
@@ -434,8 +515,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/11/09/hello-world/" rel="next" title="WELCOME">
-                <i class="fa fa-chevron-left"></i> WELCOME
+              <a href="/2019/12/10/first-Training/" rel="next" title="First Training">
+                <i class="fa fa-chevron-left"></i> First Training
               </a>
             
           </div>
@@ -444,8 +525,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/12/10/first-Training/" rel="prev" title="First Training">
-                First Training <i class="fa fa-chevron-right"></i>
+              <a href="/2019/12/20/DS-Notes-Paixu/" rel="prev" title="数据结构笔记——排序">
+                数据结构笔记——排序 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

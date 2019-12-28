@@ -1,6 +1,670 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>数据结构笔记 —— 图</title>
+    <url>/2019/12/21/DS-Notes-TU/</url>
+    <content><![CDATA[<p>Reference:《数据结构》 安徽大学出版社</p>
+<a id="more"></a>
+
+<p>可同时参照：<a href="https://blog.csdn.net/Sensente/article/details/100887588（离散数学中的图论基础定义）" target="_blank" rel="noopener">https://blog.csdn.net/Sensente/article/details/100887588（离散数学中的图论基础定义）</a></p>
+<p>作为数据结构的图，仅有两个构成要素：顶点和边。</p>
+<p>其是一种多对多关系的抽象描述</p>
+<p>图比之前介绍的其他结构要复杂的多：</p>
+<p>线性结构中结点之间是线性关系，一个结点最多只有一个直接前驱和直接后继。</p>
+<p>树形结构呈现明显的层次关系，每个结点最多只有一个双亲结点，却可以有多个孩子结点。</p>
+<p>而图结构任意两个顶点都可能发生邻接关系。</p>
+<p>一、图的基本概念和术语定义</p>
+<p>1.1 基本概念</p>
+<p>图由两部分构成：顶点集合和边的集合E，计作G=(V,E)</p>
+<p>V(Vertex)顶点：表示数据元素。</p>
+<p>E(Edge)边：表示顶点对的关系，分为有向边和无向边（弧,arc)</p>
+<p>无向边，简称边，由两个顶点的无序偶构成，“（顶点1，顶点2）”表示，两顶点可以互换。即E1 = (V1,V2) = (V2,V1)</p>
+<p>有向边，弧。E2=(V1,V2)≠(V2,V1)</p>
+<p>弧表示一种单向关系（离散数学）</p>
+<p>1.2 图的图形化表示（略）</p>
+<p>1.3 定义和术语</p>
+<p>1.3.1 无向图和有向图</p>
+<p>无向图：每条边都是无向边</p>
+<p>有向图：每条边都是弧、有向边</p>
+<p>混合图：既有有向边又有无向边（一般不做讨论）</p>
+<p>1.3.2 网络（带权图）</p>
+<p>网（network） 指的是边或弧上带有权值的图，又称带权图。</p>
+<p>网可以是无向的，也可以是有向的。</p>
+<p>权值表示两个顶点间的距离。</p>
+<p>1.3.3 子图</p>
+<p>已知图G=(V,E),若另一个图G1=(V1,E1)是图G中选取部分顶点和部分边（弧）构成，即V1⊆V，E1⊆E，则称G1是G的子图。</p>
+<p>1.3.4 邻接( Adjacent )</p>
+<p>若两个顶点之间有边相连，则称这两个顶点邻接（相邻的）。</p>
+<p>无向图 G=(V,E)，若顶点 u、w 之间有一条边 (u, w)∈E，则称顶点 u、w 互为邻接点。</p>
+<p>有向图 G=(V,E)，若顶点 u、w 之间有一条弧 &lt;u, w&gt;∈E，则称 u 邻接 w，w邻接自（于）u。</p>
+<p>1.3.5度（Degree)</p>
+<p>度指的是一个顶点关联的边的数量。对于有向图还可以区分入度和出度：</p>
+<p>入度指的是射入/指向顶点的边的数量</p>
+<p>出度指的是该点射出/指向其他顶点的边的数量</p>
+<p>有向图：度 = 入度+出度</p>
+<p>其中，度和边是有相关性的：</p>
+<p>无向图中：图的边数 = 图的顶点度数/2；</p>
+<p>有向图中：入度之和=出度之和； 图的边数 = 入度之和/出度之和/图的顶点度数之和/2;</p>
+<p>1.3.6 路径（Path)</p>
+<p>通俗的说是从一个顶点途径一些顶点和边到达另一个顶点中依次经过的顶点和边的序列。</p>
+<p>对于无向图，路径是双向可达的，对于有向图，路径往往是单向可达。</p>
+<p>路径长度：一条路径上经过的边数（弧数）</p>
+<p>1.3.7 回路</p>
+<p>路径上第一个顶点和最后一个顶点相同的闭合路径叫做回路，或称为环(Loop)</p>
+<p>1.3.8 简单路径</p>
+<p>路径中途径的顶点不重复的叫做简单路径</p>
+<p>1.3.9 简单回路</p>
+<p>除了第一个顶点和最后一个顶点外，中间途径顶点不重复的闭合路径叫做简单路径（环）</p>
+<p>1.3.10 连通图</p>
+<p>连通（可达） ：图G中，如果从顶点U到W有路径，则称U和W是联通的。</p>
+<p>连通图：无向图G中，如果任意两个顶点之间都有路径，或是连通，则称G是连通图。</p>
+<p>1.3.11 连通分量</p>
+<p>无向图中分割出来的极大连通子图。非连通图可视为由若干连通分量（连通子图）构成。</p>
+<p>1.3.12 强连通图</p>
+<p>有向图G中，若任意两个顶点之间都有路径，或是连通的，则称G为强连通图。或有向图中任意两个顶点间可以相互到达。</p>
+<p>1.3.13 强连通分量</p>
+<p>有向图中分割出来的极大连通子图。非强连通有向图由若干强连通分量构成。</p>
+<p>1.3.14 无向完全图</p>
+<p>若无向图G中任意两个顶点间都有一条边相连，称其为无向完全图。</p>
+<p>N个顶点的无向完全图有N*(N-1)/2条边。</p>
+<p>1.3.15 有向完全图</p>
+<p>若有向图G中任意两个顶点之间都有一条弧（有向边）相连，称其为有向完全图。</p>
+<p>1.3.16 （无向）树</p>
+<p>若无向图连通并且无回路，则称为（无向）树，除此之外，树还有以下几种描述：</p>
+<p>·连通的无环图</p>
+<p>·有N-1条边的连通图</p>
+<p>·有最少边的连通图</p>
+<p>N个点N-1条边的连通图</p>
+<p>1.3.17 有向树</p>
+<p>仅有一个顶点入度为0，其余顶点入度均为1的有向图。其中入度为0的顶点为其根。<br>1.3.18 连通图的生成树</p>
+<p>一个N个顶点的连通图（强连通图），其生成树是它的一个极小的连通子图，它含有图中的全部顶点，但只有足以构成一棵树的N-1条边。</p>
+<p>1.3.19 非连通图的生成森林 (spanning forest)</p>
+<p>生成森林 (spanning forest)：一个非连通图的生成森林由若干棵互不相交的树组成，含有图中的全部顶点，但是只有足以构成若干棵不相交的树的边（弧）。</p>
+<p>请注意：此处树的定义与之前章节的树并不相同，在图论中，树只是一种特殊的图。</p>
+<p>1.4图的顶点编号</p>
+<p>（略）</p>
+<p>二、图的储存结构</p>
+<p>邻接矩阵表示法</p>
+<p>邻接链表（邻接表）表示法</p>
+<p>邻接多重表表示法</p>
+<p>十字链表表示法等（Dancing Links)</p>
+<p>以下使用第一、二种。</p>
+<p>2.1邻接矩阵</p>
+<p>这里的图指无向图或有向图，不含网（带权图）。矩阵A中，若顶点vi到vj之间有边或弧连接，则Aij=1；否则Aij=0。</p>
+<p>有关邻接矩阵的一些结论：</p>
+<p>·无向图：</p>
+<p>邻接矩阵是对称的</p>
+<p>第i行或j列 1 的个数就是该顶点的度</p>
+<p>图的边数  = 矩阵中 1 的个数 / 2</p>
+<p>·有向图：</p>
+<p>因为边的方向性，邻接矩阵不一定对称</p>
+<p>第i行“1”的个数是顶点vi的出度，第i列“1”的个数是顶点vi的入度</p>
+<p> 图的边数=矩阵中“1”的个数。</p>
+<p>网的表示即用边权代替1</p>
+<p>下列给出的定义式并不通用。</p>
+<p>邻接矩阵存储结构描述 </p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> INF 65535   <span class="comment">//定义无穷大，也可以是其它很大的数字</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MaxVerNum  1000   </span></span><br><span class="line">             <span class="comment">//定义最大顶点个数，可根据需要定义最大顶点数</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">char</span> elementType;     </span><br><span class="line">            <span class="comment">//定义图中顶点的数据类型，这里不妨设为char类型</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> cellType;          </span><br><span class="line">           <span class="comment">//定义邻接矩阵中元素的数据类型，这里不妨设为int型</span></span><br><span class="line">           <span class="comment">//对无权图，1-相邻（有边），0-不相邻（无边）</span></span><br><span class="line">           <span class="comment">//对有权图，为边的权值，无边为无穷大。</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span>&#123; UDG, UDN, DG, DN &#125; GraphKind;  </span><br><span class="line">           <span class="comment">//枚举图的类型--无向图，无向网，有向图，有向网</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">GraphAdjMatrix</span></span></span><br><span class="line"><span class="class">&#123;</span>                            <span class="comment">//顶点数组，存放顶点元素的值</span></span><br><span class="line">	elementType data[MaxVerNum];          </span><br><span class="line">	cellType AdjMatrix[MaxVerNum][MaxVerNum];</span><br><span class="line">                              <span class="comment">//邻接矩阵，元素类型为cellType</span></span><br><span class="line">	<span class="keyword">int</span> VerNum;       <span class="comment">//顶点数</span></span><br><span class="line">	<span class="keyword">int</span> ArcNum;       <span class="comment">//弧（边）数</span></span><br><span class="line">	GraphKind gKind; </span><br><span class="line">                    <span class="comment">//图的类型:0-无向图；1-无向网；</span></span><br><span class="line">                    <span class="comment">//                2-有向图；3-有向网</span></span><br><span class="line"> <span class="comment">//此项用以区分图的类型，为可选分量，可以取消。</span></span><br><span class="line"> <span class="comment">//此项也可以直接定义为整型，而不用枚举定义。</span></span><br><span class="line">&#125; Graph;  <span class="comment">//图的类型名</span></span><br></pre></td></tr></table></figure>
+<p>图的邻接矩阵优缺点：</p>
+<p>优点：直观、易于实现。</p>
+<p>缺点：对于稀疏图毫无优势。</p>
+<p>2.2 邻接表</p>
+<ol>
+<li>顶点表 顶点表存储顶点信息，可用n个结点的顺序表存储。</li>
+</ol>
+<p>表中每个元素（结点）表示图中的一个顶点。</p>
+<p>顶点表的结点结构：数据域+指针域。</p>
+<p>数据域存放顶点数据元素或顶点相关的其它信息； 指针域指向此顶点对应的边链表，即第一个邻接顶点。</p>
+<ol start="2">
+<li>边链表 边链表保存顶点表中对应顶点的边的信息，即邻接顶点信息。</li>
+</ol>
+<p>边链表结点结构 可由3个部分构成：邻接点域+信息域+指针域。</p>
+<p>邻接点域—保存邻接点信息，比如邻接点在顶点表中的编号等；</p>
+<p>信息域—这个域可选的，保存边的相关信息，比如在网中，可用来保存边的权值。</p>
+<p>指针域—指向下一条边（下一个邻接点）。</p>
+<p>定义边链表的结点结构</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">eNode</span></span></span><br><span class="line"><span class="class">&#123;</span>   <span class="comment">//邻接顶点信息，此处为顶点编号，从1开始</span></span><br><span class="line">	<span class="keyword">int</span> adjVer; </span><br><span class="line">     <span class="comment">//边链表中表示边的相关信息，比如表的权值</span></span><br><span class="line">	eInfoType eInfo; </span><br><span class="line">     <span class="comment">//指向边链表中的下一个结点。 </span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">eNode</span>* <span class="title">next</span>;</span>  </span><br><span class="line">&#125;EdgeNode;  <span class="comment">//边链表结点类型</span></span><br><span class="line"><span class="comment">//定义顶点表的结点结构</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">vNode</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	elementType data;     <span class="comment">//存放图中顶点的数据值</span></span><br><span class="line">   EdgeNode* firstEdge; </span><br><span class="line">    <span class="comment">//指向此顶点关联的第一条边的指针，即边链表的头指针</span></span><br><span class="line">   <span class="comment">//注意：fristEdge指针与边链表结点中的next指针类型相同</span></span><br><span class="line">&#125;VerNode;    <span class="comment">//顶点表结点类型</span></span><br><span class="line"><span class="comment">//定义图的整体结构</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">GraphAdjLinkList</span></span></span><br><span class="line"><span class="class">&#123;</span>     <span class="comment">//顶点表，此为数组（顺序表），存放顶点信息</span></span><br><span class="line">      <span class="comment">//数组的元素为VerNode结构类型</span></span><br><span class="line">	VerNode VerList[MaxVerNum];                             </span><br><span class="line">	<span class="keyword">int</span> VerNum;    <span class="comment">//顶点数</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> ArcNum;    <span class="comment">//弧（边）数</span></span><br><span class="line">	GraphKind gKind;  </span><br><span class="line">     <span class="comment">//图的类型:0-无向图；1-无向网；2-有向图；3-有向网</span></span><br><span class="line">    <span class="comment">//此项用以区分图的类型，为可选分量，可以取消。</span></span><br><span class="line">    <span class="comment">//此项也可以直接定义为整型，而不用枚举定义。</span></span><br><span class="line">&#125;Graph;  <span class="comment">//图的类型名</span></span><br></pre></td></tr></table></figure>
+<p>对无向图和网计数所有边链表的结点数，除以2即是边数</p>
+<p>对有向图和网通过邻接表或逆邻接表计数边链表结点数即是边数。</p>
+<p>邻接表的优点：</p>
+<p>作为链式储存结构，可以动态申请内存，有以下几个方面优点：</p>
+<p>便于求边。</p>
+<p>稀疏图空间效率极高。</p>
+<p>缺点：</p>
+<p>判断两个顶点是否有边（弧）相对复杂。</p>
+<p>图的遍历</p>
+<p>·深度优先(DFS)</p>
+<p>访问当前结点V</p>
+<p>访问当前对所有V的邻接点执行DFS</p>
+<p>在本例中</p>
+<p>firstAdj( G, v )：返回图G中顶点v的第一个邻接点。若不存在邻接点（编号），则返回0；</p>
+<p>nextAdj( G, v, w )：返回图G中顶点v的邻接点中处于w之后的那个邻接点。若不存在这样的邻接点（编号），则返回0；<br>通过这两个函数，可依次求出一个顶点的所有邻接点。<br>DFS&amp;DFSTraverse</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DFS</span><span class="params">( Graph G, <span class="keyword">int</span> v )</span></span></span><br><span class="line"><span class="function"></span>&#123;              <span class="comment">//从编号v的顶点开始对图G进行深度优先搜索遍历</span></span><br><span class="line">	<span class="keyword">int</span> w;</span><br><span class="line">    visit(G, v);             <span class="comment">//访问顶点v</span></span><br><span class="line">    visited[v]=TRUE;  <span class="comment">//设置v已经访问标志		</span></span><br><span class="line">	w=firstAdj(G,v); <span class="comment">//求v的第一个邻接点，返回其编号给w</span></span><br><span class="line">	<span class="keyword">while</span>(w!=<span class="number">0</span>)           <span class="comment">//v的邻接点循环</span></span><br><span class="line">	&#123;                  <span class="comment">//从没有访问过的邻接点出发递归深度遍历</span></span><br><span class="line">		<span class="keyword">if</span>(!visited[w])</span><br><span class="line">			DFS(G,w);      <span class="comment">//对v的邻接点w递归DFS</span></span><br><span class="line">		w=nextAdj(G,v,w);  <span class="comment">//找v 的w后的下一个邻接点</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DFSTraverse</span><span class="params">( Graph G, <span class="keyword">int</span> v )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i;     <span class="comment">//顶点编号 </span></span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=G.VerNum;i++)  <span class="comment">//初始化访问标记数组</span></span><br><span class="line">		visited[i]=<span class="literal">false</span>;</span><br><span class="line">	</span><br><span class="line">	DFS(G,v);  <span class="comment">//遍历指定顶点v所在的连通分量</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=G.VerNum;i++)</span><br><span class="line">	&#123;                  <span class="comment">//循环遍历图中所有其它的连通分量</span></span><br><span class="line">		<span class="keyword">if</span>(!visited[i])</span><br><span class="line">		&#123;</span><br><span class="line">			DFS(G,i);     <span class="comment">//遍历i所在的连通分量</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">(<span class="number">2</span>) 基于邻接表的实现</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DFS</span><span class="params">( Graph G, <span class="keyword">int</span> v )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	visit(G,v);	   <span class="comment">//访问顶点v，如：cout&lt;&lt;Data[v]&lt;&lt;"\t"; </span></span><br><span class="line">    visited[v]=TRUE;     <span class="comment">//标记编号为v的顶点已经访问</span></span><br><span class="line">	EdgeNode *p;</span><br><span class="line">                    <span class="comment">//p初始化为顶点v的边链表的头指针</span></span><br><span class="line">	p=G.VerList[v].firstEdge;  </span><br><span class="line">	<span class="keyword">while</span>(p)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(!visited[ p-&gt;adjVer ])      <span class="comment">// p-&gt;adjVer 为v的邻接点编号</span></span><br><span class="line">		        DFS( G, p-&gt;adjVer );  <span class="comment">//递归深度遍历顶点v的邻接点</span></span><br><span class="line">		p=p-&gt;next;                         <span class="comment">//p指向v的下一个邻接点</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>DFS算法分析：</p>
+<p>时间复杂度</p>
+<p>基于邻接矩阵：O(N^2)</p>
+<p>基于邻接表:O(N+E) (E stands for edge nums)</p>
+<p>·广度优先(BFS)</p>
+<p>访问V0</p>
+<p>访问V0的所有邻接点</p>
+<p>假设访问的V1,V2…</p>
+<p>依次访问其邻接点直到为空</p>
+<p>（层次遍历序）</p>
+<p>需要队列辅助。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BFS</span><span class="params">( Graph G, <span class="keyword">int</span> v )</span> </span></span><br><span class="line"><span class="function"></span>&#123; </span><br><span class="line">    <span class="keyword">int</span> w;  </span><br><span class="line">    Queue  Q;                  <span class="comment">//初始化队列</span></span><br><span class="line">    visit(v);                       <span class="comment">//访问顶点v</span></span><br><span class="line">    visited[v]=TRUE;       <span class="comment">//标记顶点v已访问</span></span><br><span class="line">    enQueue(Q,v);           <span class="comment">//v入队</span></span><br><span class="line">    <span class="keyword">while</span> (!queueEmpty(Q))</span><br><span class="line">    &#123; </span><br><span class="line">       getFront(Q,v)          <span class="comment">//取队头元素到v</span></span><br><span class="line">       outQueue(Q);         <span class="comment">//队头元素出队</span></span><br><span class="line">       w=firstAdj(G,v);      <span class="comment">//查找v的第一个邻接点</span></span><br><span class="line">    <span class="keyword">while</span> (w!=<span class="number">0</span>)     <span class="comment">//循环搜索v的每一个邻接点</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> ( !visited[w] )   <span class="comment">//邻接点w未被访问</span></span><br><span class="line">    &#123; </span><br><span class="line">        visit(G,w);                  <span class="comment">//访问顶点w</span></span><br><span class="line">        visited[w]=TRUE; <span class="comment">//标记顶点w已经访问</span></span><br><span class="line">        enQueue(Q,w);          <span class="comment">//w入队</span></span><br><span class="line">    &#125;</span><br><span class="line">          <span class="comment">//查找顶点v的在w之后的下一个邻接点</span></span><br><span class="line">    w=nextAdj(G,v,w); </span><br><span class="line">&#125;&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>算法分析：</p>
+<p>时间复杂度：</p>
+<p> 基于邻接矩阵：O(N^2)</p>
+<p>基于邻接表:O(N+E) (E stands for edge nums)</p>
+<p>最小生成树</p>
+<p><a href="https://blog.csdn.net/Sensente/article/details/102492607" target="_blank" rel="noopener">https://blog.csdn.net/Sensente/article/details/102492607</a></p>
+<p>二分图(KM/匈牙利）</p>
+<p><a href="https://blog.csdn.net/Sensente/article/details/96148276" target="_blank" rel="noopener">https://blog.csdn.net/Sensente/article/details/96148276</a></p>
+<p>最短路(SPFA,Dijkstra,Floyd)</p>
+<p><a href="https://blog.csdn.net/Sensente/article/details/88903818" target="_blank" rel="noopener">https://blog.csdn.net/Sensente/article/details/88903818</a></p>
+]]></content>
+      <tags>
+        <tag>数据结构</tag>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Second Training</title>
+    <url>/2019/12/20/second-Training/</url>
+    <content><![CDATA[<p>#第二次训练赛题解（尚未完成）</p>
+<a id="more"></a>
+
+<p>1.单调队列</p>
+<p>即：不断更新队列中的元素，保留当前范围内的最值</p>
+<p>P1440 求m区间内的最小值 <a href="https://www.luogu.com.cn/problem/P1440" target="_blank" rel="noopener">https://www.luogu.com.cn/problem/P1440</a></p>
+]]></content>
+      <tags>
+        <tag>训练赛</tag>
+        <tag>题解</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数据结构笔记——树</title>
+    <url>/2019/12/20/DS-Notes-Tree/</url>
+    <content><![CDATA[<p>Reference:《数据结构》 安徽大学出版社</p>
+<a id="more"></a>
+<p>一、树的定义</p>
+<p>树的递归定义：</p>
+<p>1.有且只有一个结点叫根。</p>
+<p>2.除根结点外其余结点可划分为m个互不相交的子集T1,T2…Tm(m&gt;=0),并且这m个子集每个子集本身又构成一棵树，称为T的子树。</p>
+<p>树的表示方法有很多，如图形表示，广义表表示，嵌套集合表示，凹入表表示等等。</p>
+<p>树的基本概念和术语</p>
+<p>1.结点</p>
+<p>又称作节点，表示数据元素，链式储存结构要加上相关指针。</p>
+<p>2.结点的度Degree</p>
+<p>结点的子树个数或者分枝数，称为结点的度。</p>
+<p>3.树的度</p>
+<p>树内各结点的度的最大值。</p>
+<p>4.叶子结点</p>
+<p>度为0的结点称为叶子结点，或者终端结点。</p>
+<p>5.分支结点</p>
+<p>指的是度不为0的结点，或者有子树的结点。</p>
+<p>6.结点的层次</p>
+<p>此处规定根结点的层次为1，其他结点的层次数等于父亲结点+1。结点的层次也叫结点的深度。</p>
+<p>7.树的高度(Depth)</p>
+<p>树中各结点的最大层次数，称为树的高度。</p>
+<p>8.孩子结点</p>
+<p>当前结点所有子树的根结点，称为孩子结点。</p>
+<p>9.后裔结点</p>
+<p>当前结点为跟结点，其子树上的所有结点，都是当前结点的后裔结点。</p>
+<p>10.双亲结点</p>
+<p>即父亲结点。</p>
+<p>11.祖先结点</p>
+<p>从根结点由路径到达当前结点，路径经过的所有结点，均为当前结点的祖先结点。</p>
+<p>12.兄弟结点(Silbling)</p>
+<p>双亲结点相同的所有结点互称为兄弟结点。</p>
+<p>13.堂兄弟结点</p>
+<p>双亲结点在同一层次（深度相同）的结点，互为堂兄弟。</p>
+<p>14.有序树和无序树</p>
+<p>同一结点的所有子树，从左至右规定次序叫有序树，若结点的子树不分先后次序即无序树。</p>
+<p>15.森林</p>
+<p>m棵不相交树的集合，叫做森林。</p>
+<p>与线性表以及其他结构相比，树结构有明显的差异，每个结点至多有一个直接前驱，但却可以有多个后继。</p>
+<p>二、二叉树</p>
+<p>2.1递归定义</p>
+<p>二叉树是n个结点的有限集合，其中n&gt;=0,n=0 称为空树否则：</p>
+<p>1.有且只有一个结点为根结点。</p>
+<p>2.其余结点划分为两个互不相交的子集TL，TR，并且TL，TR分别构成一棵二叉树，称为T的左子树和右子树。</p>
+<p>2.2特点</p>
+<p>特点一、二叉树中的每个结点最多只有两棵子树。即二叉树中仅仅存在三种度数的结点：0度，1度，2度。</p>
+<p>特点二、二叉树是一棵有序树，其子树区分左右。</p>
+<p>例如：3个结点构成的树 只有2种形态，而3个结点构成的二叉树形态 有 5 种</p>
+<p>2.3二叉树的性质</p>
+<p>定义：</p>
+<p>满二叉树：每层都有最大数目结点的二叉树</p>
+<p>完全二叉树：在满二叉树最下层自右向左连续删除若干结点形成的树</p>
+<p>性质一：二叉树上第i层上的结点树</p>
+<p>性质二：深度为k的二叉树的结点树</p>
+<p>性质三：对于任意非空二叉树，如果其叶子树为N0,度为2的结点树为N2，则有下列等式：</p>
+<p>证明略。</p>
+<p>性质四：有n个结点的完全二叉树的深度为 （向下取整）</p>
+<p>性质五：在编号的完全二叉树中，当前结点的编号为i，则有：</p>
+<p>1.如果i的左孩子存在，其编号为2i</p>
+<p>2.如果i的右孩子存在，其编号为2i+1</p>
+<p>3.如果i的父亲结点存在，其编号为i/2 向下取整</p>
+<p>例题：已知完全二叉树有100个结点，则该二叉树有多少个叶子结点？</p>
+<p>（至少三种方法）</p>
+<p>方法一：最大编号为100，其父结点为50，从51～100均为叶子结点。ANS = 100 - 51 + 1 = 50.</p>
+<p>2.4二叉树的存储结构</p>
+<p>2.4.1顺序存储结构</p>
+<p>（1）完全二叉树的顺序存储</p>
+<p>用数组存储元素（结点的值），用数组下标编号表示树中对应结点的编号值。</p>
+<p>（2）一般二叉树的顺序存储</p>
+<p>将其补全为完全二叉树后按照完全二叉树进行存储。</p>
+<p>2.4.2链表存储结构</p>
+<p>二叉链表</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">BNode</span>&#123;</span></span><br><span class="line">    <span class="keyword">char</span> data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">BNode</span> *<span class="title">lChild</span>, *<span class="title">rChild</span>;</span></span><br><span class="line">&#125;BiNode;</span><br></pre></td></tr></table></figure>
+<p>二叉链表是最基本的链式存储结构，一棵n个结点的二叉树，采用二叉链表存储的时候，共有2n个指针域，其中有n-1个指针非空（除了根结点，其他结点都有指针指向，剩下2n-(n-1) = n+1个指针域为空。</p>
+<p>三叉链表</p>
+<p>每个结点有三个指针域（左右孩子，父结点），称这种结构的链表叫做三叉链表。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">TriNode</span>&#123;</span></span><br><span class="line">    <span class="keyword">char</span> data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Trinode</span> *<span class="title">lChird</span>, *<span class="title">rChild</span>, *<span class="title">parent</span>;</span></span><br><span class="line">&#125;TNode;</span><br></pre></td></tr></table></figure>
+
+
+<p>2.5 二叉树的遍历</p>
+<p>遍历即对二叉树中的每个结点经过一次且仅一次的访问。</p>
+<p>二叉树访问次序组合</p>
+<pre><code>从左到右                   从右到左</code></pre><p>先序                              DLR                          DRL</p>
+<p>中序                              LDR                          RDL</p>
+<p>后序                              LRD                          RLD</p>
+<p>在此使用从左到右的遍历序。</p>
+<p>1.先序遍历 DLR</p>
+<p>if(T){<br>    首先访问根结点;<br>    先序遍历T的左子树;<br>    先序遍历T的右子树;<br>}<br>2.中序遍历 LDR</p>
+<p>if(T) {<br>    中序遍历T的左子树;<br>    访问T的根结点；<br>    中序遍历T的右子树;<br>}<br>3.后序遍历 LRD</p>
+<p>if(T) {<br>    后序遍历T的左子树;<br>    后序遍历T的右子树;<br>    访问T的根结点;<br>}</p>
+<p>此处需要练习，请自行练习。</p>
+<p>例：某序列遍历如下：</p>
+<p>中序：CBEDAGHFJI</p>
+<p>后序：CEDBHGJIFA</p>
+<p>试构造其二叉树结构。</p>
+<p>先序遍历的递归算法</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">preOrder</span><span class="params">(BNode *T)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(T) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; T-&gt;data &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        preOrder(T-&gt;lChild);</span><br><span class="line">        preOrder(T-&gt;rChild);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>先序遍历的非递归算法</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">preOrderNR</span><span class="params">(BiNode *T)</span> </span>&#123;</span><br><span class="line">    BiNode *p;</span><br><span class="line">    <span class="built_in">stack</span>&lt;BiNode*&gt; s;</span><br><span class="line">    p = T;</span><br><span class="line">    <span class="keyword">while</span>(p || s.empty()) &#123;</span><br><span class="line">        <span class="keyword">if</span>(p) &#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; p-&gt;data &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">            s.push(p);</span><br><span class="line">            p = p-&gt;lChild;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            s.pop();</span><br><span class="line">            p = p-&gt;rChild;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2.6二叉树的创建和销毁</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">createSubTree</span><span class="params">(BiNode *q, <span class="keyword">int</span> k)</span> </span>&#123; <span class="comment">// 子树创建</span></span><br><span class="line">    <span class="comment">//q为当前跟结点</span></span><br><span class="line">    <span class="comment">//k = 1为左子树，k = 2为右子树</span></span><br><span class="line">    BiNode *u;</span><br><span class="line">    <span class="keyword">int</span> x;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; x;</span><br><span class="line">    <span class="keyword">if</span>(x != <span class="string">'/'</span>) &#123;</span><br><span class="line">        u = <span class="keyword">new</span> BiNode;</span><br><span class="line">        u-&gt;data = x;</span><br><span class="line">        u-&gt;lChild = <span class="literal">NULL</span>;</span><br><span class="line">        u-&gt;rChild = <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">if</span>(k == <span class="number">1</span>) </span><br><span class="line">            q -&gt;lChild = u;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(k == <span class="number">2</span>)</span><br><span class="line">            q -&gt;rChild = u;</span><br><span class="line">        createSubTree(u,<span class="number">1</span>);</span><br><span class="line">        createSubTree(u,<span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">createBiTree</span><span class="params">(BiNode *&amp;T)</span> </span>&#123;</span><br><span class="line">    BiNode *p;</span><br><span class="line">    <span class="keyword">char</span> x;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"请按照先序序列输入二叉树,'/'表示无子树"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; x;</span><br><span class="line">    <span class="keyword">if</span>(x = <span class="string">'/'</span>)  </span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    T = <span class="keyword">new</span> BiNode;</span><br><span class="line">    T-&gt;data = x;</span><br><span class="line">    T-&gt;lChild = <span class="literal">NULL</span>;</span><br><span class="line">    T-&gt;rChild = <span class="literal">NULL</span>;</span><br><span class="line">    p = T;</span><br><span class="line">    createSubTree(p, <span class="number">1</span>);</span><br><span class="line">    createSubTree(p, <span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>数据结构</tag>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数据结构笔记——查找</title>
+    <url>/2019/12/20/DS-Notes-Search/</url>
+    <content><![CDATA[<p>Reference:《数据结构》 安徽大学出版社</p>
+<a id="more"></a>
+<p>一、查找的概述</p>
+<p>待查找的数据通常以某种表的形式给出——即查找表。</p>
+<p>在查找表中每一项称为一个 字段。</p>
+<p>一般来说，在一个数据表中，若某字段的值可以标示一个关键字（或键）</p>
+<p>若可以唯一确定一个元素，则称其为主关键字、否则称之为次关键字。</p>
+<p>二、顺序表的查找</p>
+<p>2.1简单顺序表的查找</p>
+<p>（过于原始质朴的查找就不多说了）</p>
+<p>设定监视哨的查找：</p>
+<p>将元素查找的范围约定在1～N，存储数组需要描述到A[N+1]。这样，可以通过返回下标0来标示查找失败。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">seqSearch</span><span class="params">(elementType A[], <span class="keyword">int</span> n, keytype x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = n;</span><br><span class="line">    A[<span class="number">0</span>].key = x;<span class="comment">//监视哨</span></span><br><span class="line">    <span class="keyword">while</span>(A[i].key != x) i--;<span class="comment">//从后向前扫描</span></span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>当查找失败的时候，肯定会在A[0]找到该元素，因而返回其下标0以表示查找失败。若不设置此监视哨，每次循环均要判断下标是否越界，因而可以节省一半时间。</code></pre><p>平均查找长度(“ASL”) = (1+2+~+n) / n = (n + 1) / 2;</p>
+<p>2.2有序表的二分查找</p>
+<p>处理有序表（此处假设为递增有序），则可以使用二分查找（折半查找） 来进行查找。</p>
+<p>二分查找的过程：</p>
+<p>预处理：首先设查找区域的下标分别用low和high进行表示(0和n-1)，mid为(low+high)/2;</p>
+<p>1.x==A[mid].key 查找成功，返回值。</p>
+<p>2.x&lt;A[mid].key 元素只可能在左边(low~mid-1)，因此可以在此区域继续查找。</p>
+<p>3.x&gt;A[mid].key 元素只可能在右边(mid+1~high),因此可以在此区域继续查找。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">binarySearch</span><span class="params">(elementType A[], <span class="keyword">int</span> n, keytype x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> low = <span class="number">0</span>, high = n - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(low &lt; high)&#123;</span><br><span class="line">        <span class="keyword">int</span> mid = (low + high) &gt;&gt;<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(x==A[mid].x) <span class="keyword">return</span> mid;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(x&lt;A[mid].x) high = mid - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> low = mid + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">binarySearch</span><span class="params">(elementType A[], <span class="keyword">int</span> low, <span class="keyword">int</span> high, keytype x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> mid;</span><br><span class="line">    <span class="keyword">if</span>(low &gt; high) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">else</span> &#123;mid = (low+high)/<span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span>(x==A[mid].key) <span class="keyword">return</span> mid;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(x&lt;A[mid].key) </span><br><span class="line">        <span class="keyword">return</span> (binarySearch(A,low,mid<span class="number">-1</span>,x);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> (binarySearch(A,mid+<span class="number">1</span>,high,x);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>(递归版本）</p>
+<p>2.3索引表的查找</p>
+<p>划分若干块后，每一块是有序的，称其为分块有序。</p>
+<p>在此情况下，可以建立一个索引表，每一项索引包括两部分：该块的起始地址和该块中最大或者最小的关键字的值。将这些索引项按序排列形成的表即为索引表。</p>
+<p>在此结构中查找要分两部进行，第一步要在索引表中找到元素所在的块，然后在块中查找，因此查找时间性能取决于两步时间之和。</p>
+<p>三、树表的查找</p>
+<p>3.1二叉排序树</p>
+<p>二叉排序树是一棵二叉树，或者为空，或者满足以下条件：</p>
+<p>若左子树不为空，则左子树上所有结点均小于根的值；</p>
+<p>若右子树不为空，则右子树上所有结点均大于根的值；</p>
+<p>其左右子树均为二叉排序树。（递归定义）</p>
+<p>其查找结点的值的算法：</p>
+<p>（非递归）</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">Binode * <span class="title">search</span><span class="params">(Binode *T, keytype x)</span> </span>&#123;</span><br><span class="line">    Binode *p = T;</span><br><span class="line">    <span class="keyword">while</span>(p)&#123;</span><br><span class="line">        <span class="keyword">if</span>(x == p-&gt;data) <span class="keyword">return</span> p;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(x &lt; p-&gt;data) p = p-&gt;lChild;</span><br><span class="line">        <span class="keyword">else</span> p = p-&gt;rChild;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> p;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（递归）</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">Binode *<span class="title">search</span><span class="params">(Binode *T,keytype x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(T==<span class="literal">NULL</span> || T-&gt;data == x) <span class="keyword">return</span> T;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(x &lt; T-&gt;data) <span class="keyword">return</span> (search(T-&gt;lChild,x));</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> (search(T-&gt;rChild,x));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>二叉排序树的构造和维护</p>
+<p>递归实现。根据当前值与根结点的大小关系来判断该插入的位置。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(Binode **T, Binode *S)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(*T == <span class="literal">NULL</span>) *T = S;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(S-&gt;key &lt; (*T)-&gt;key)   </span><br><span class="line">        insert(&amp;((*T)-&gt;lChild),S);</span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">        insert(&amp;((*T)-&gt;rChild),S);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>3.2平衡二叉树（AVL）</p>
+<p>为了降低平均查找长度(ASL)，让各个结点深度尽可能减小，树中结点两个子树的高度不能偏差太大。</p>
+<p>必须满足下列性质：</p>
+<p>1.左右子树高度之差的绝对值不超过1</p>
+<p>2.左右子树均为AVL</p>
+<p>平衡因子：结点左子树高度-结点右子树高度。</p>
+<p>平衡树的平衡化<br>有(LL\LR\RR\RL)等平衡操作，请务必自我练习。</p>
+<p>四、散列表的查找（哈希）</p>
+<p>注意：此处所描述的查找过于简单，切勿用于实际项目。</p>
+<p>即给定关键字key,用一个函数H(key)来计算出该关键字所标示元素的地址。</p>
+<p>在用函数H计算给定关键值的地址时，称函数H为哈希函数(HASH)。按此方法建立的表即为哈希表/散列表。</p>
+<p>4.1常见方法：</p>
+<p>1.直接定址，H(k) = a * k + b;</p>
+<p>2.除留余数，H(k) = k %P (P&lt;=表长)</p>
+<p>3.平方取中,取关键字平方后中间几位数字作为地址。</p>
+<p>4.折叠法</p>
+<p>5.数值分析法</p>
+<p>4.2处理冲突的方法</p>
+<p>1.开放定址法</p>
+<p>又可分为线性探测和二次探测。</p>
+<p>2.再散列</p>
+<p>3.链地址法（拉链法）</p>
+<p>等同于树结构中的孩子链表结构。</p>
+]]></content>
+      <tags>
+        <tag>数据结构</tag>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数据结构笔记——排序</title>
+    <url>/2019/12/20/DS-Notes-Paixu/</url>
+    <content><![CDATA[<p>Reference:《数据结构》 安徽大学出版社</p>
+<a id="more"></a>
+<p>一、基本概念</p>
+<p>1.1增排序和减排序</p>
+<p>按关键字从大到小或从小到大划分。</p>
+<p>1.2内部排序和外部排序</p>
+<p>数据元素均在内存中即内部排序，否则则包含外部排序。</p>
+<p>1.3稳定排序和不稳定排序</p>
+<p>关键字相同的两个元素，排序后相对位置发生变化即不稳定，否则即稳定。</p>
+<p>1.4排序算法的评价指标</p>
+<p>时间复杂度   和   空间复杂度。</p>
+<p>二、插入排序</p>
+<p>2.1基本思想</p>
+<p>将待排序表看作左右两个部分，左边为有序区，右边为无序区，整个排序过程就是将右边无序区的元素逐个插入到有序区中，以构成有序区。主要介绍 直接插入排序和希尔排序。</p>
+<p>2.2直接插入排序</p>
+<p>现直接给出代码和注释：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insertSort</span><span class="params">(elementType A[n+<span class="number">1</span>])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++)&#123;        <span class="comment">//I表示待插入元素的下标</span></span><br><span class="line">        A[<span class="number">0</span>] = A[I];                    <span class="comment">//设置监视哨保存待插入元素，以腾出A[i]的空间</span></span><br><span class="line">        j = I - <span class="number">1</span>;                      <span class="comment">//j表示当前空位置的前一个</span></span><br><span class="line">        <span class="keyword">while</span>(A[j].key &gt; A[<span class="number">0</span>].key)&#123;     <span class="comment">//搜索插入位置并腾出空位</span></span><br><span class="line">            A[j+<span class="number">1</span>] = A[j];</span><br><span class="line">            j = j - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        A[j+<span class="number">1</span>] = A[<span class="number">0</span>];                  <span class="comment">//插入元素</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>算法分析：</p>
+<p>1.稳定性：该算法为稳定算法。</p>
+<p>2.空间性能：该算法仅需要一个记录的监视哨辅助空间。</p>
+<p>3.时间性能：整个算法循环n-1次，每次循环中的基本操作为比较和移动元素，一般情况下为O(N^2).</p>
+<p>2.3希尔排序(Shell Sort)</p>
+<p>基本思想：将待排序的序列划分为若干组别，在每组内进行直接选择插入排序，以使得整个序列基本有序，然后再对整个序列进行直接插入排序。</p>
+<p>这种排序的关键在于选组。而我们所决定的选择是将整个序列的长度的1/2在初始选择为步长。后面依次递减1/2。</p>
+<p>伪代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ShellSort</span><span class="params">(elementType A[n+<span class="number">1</span>], <span class="keyword">int</span> dh)</span> </span>&#123; <span class="comment">//dh means the ORIGINAL FOOTSTEP</span></span><br><span class="line">    <span class="keyword">while</span>(dh&gt;=<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span>(I = dh + <span class="number">1</span>; I &lt;= n; I++)&#123;</span><br><span class="line">            temp = A[I];</span><br><span class="line">            j = I;</span><br><span class="line">            <span class="keyword">while</span>(j &gt; d &amp;&amp; temp.key&lt;A[j-dh].key)&#123;</span><br><span class="line">                A[j] = A[j-dh];</span><br><span class="line">                j = j - dh;</span><br><span class="line">            &#125;</span><br><span class="line">            A[j] = temp;    </span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">            dh = dh/<span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>算法分析：</p>
+<p>希尔排序是分组插入排序，先按照规定将元素分组，同一组内采用直接插入排序。</p>
+<p>对比希尔排序和直接插入排序，希尔排序除了分组循环外，其余同插入排序几乎完全一致，只是步长从1变为了dh</p>
+<p>1.该算法为不稳定算法。</p>
+<p>2.空间复杂度为O(1)</p>
+<p>3.时间复杂度为O(nlog2N)</p>
+<p>   与分区方法有很大关系</p>
+<p>   性能优于直接插入排序，时间复杂度介于O(n)和O(n^2)之间，大致为O(1.3)或O(1.5)</p>
+<p>三、交换排序</p>
+<p>两两比较待排序元素，发现倒序则交换。</p>
+<p>3.1冒泡排序</p>
+<p>逐个比较两相邻元素，发现倒序则交换。</p>
+<p>典型做法是从后往前（从下往上）逐个比较相邻2个元素，发现倒序则交换。</p>
+<p>每次扫描一定能将当前最小/大的元素交换到最终位置，如同水泡冒出水面</p>
+<p>伪代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bubbleSort</span><span class="params">(<span class="keyword">int</span> A[])</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> I = <span class="number">1</span>; I &lt; n; I++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = n; j &gt;= I + <span class="number">1</span>; j--)&#123;</span><br><span class="line">            <span class="keyword">if</span>(A[j].key&lt;A[j<span class="number">-1</span>].key)&#123;</span><br><span class="line">                swap(A[j],A[j<span class="number">-1</span>]; <span class="comment">//SWAP in IOSTREAM</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>改进的冒泡排序<br>接下来考虑一种极端情况：序列本身就是有序。</p>
+<p>此种情况下，依然将进行O(n^2)级别的扫描。</p>
+<p>很明显不够划算。</p>
+<p>因此，我们可以设置一种含有标志是否已经交换完成的标志。这样作为每次冒泡排序完成后是否还需要继续的标志。</p>
+<p>因此得到的改进算法如下：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bubbleSort</span><span class="params">(<span class="keyword">int</span> A[n+<span class="number">1</span>])</span> </span>&#123;</span><br><span class="line">I = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">do</span>&#123;</span><br><span class="line">    exchanged = FALSE; <span class="comment">// As a sign of Exchanged or not</span></span><br><span class="line">    <span class="keyword">for</span>(j = n; j &gt;= I + <span class="number">1</span>; j--) &#123;</span><br><span class="line">        <span class="keyword">if</span>(A[j].key &lt; A[j<span class="number">-1</span>].key)&#123;</span><br><span class="line">            swap(A[j],A[j<span class="number">-1</span>]);</span><br><span class="line">            exchanged = TRUE;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    I++;</span><br><span class="line">    &#125;<span class="keyword">while</span>(I&lt;=n<span class="number">-1</span>&amp;&amp;exchanged == TRUE);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>算法分析：</p>
+<p>稳定性：稳定排序</p>
+<p>空间复杂度：O(1)的辅助空间</p>
+<p>时间复杂度：</p>
+<p>受到数据表初始状态影响大。</p>
+<p>最好情况：正序 比较n-1次，交换 0 次， 时间复杂度O(n)</p>
+<p>最坏情况：全部逆序 比较与交换 均为 n*(n-1)/2;</p>
+<p>一般:O(n^2)</p>
+<p>3.2快速排序</p>
+<p>3.2.1基本思想：分治法。</p>
+<p>选定一个元素作为中间元素，然后将表中所有元素与之比较：</p>
+<p>比其小的放在表的前面；</p>
+<p>比其大的放在表的后面；</p>
+<p>该元素放在两部分中间做划分，这就是其最终位置。</p>
+<p>这样就可以得到一个划分（二分）</p>
+<p>然后对左右子表再分别进行划分。</p>
+<p>快速排序通过一趟排序将排序序列分成左右两部分，使得左边任意元素均不大于/小于右边任意元素，并将中间元素放到最终位置。</p>
+<p>3.2.2操作方法</p>
+<p>选择第一个元素作为中间元素</p>
+<p>1.先保存该元素到其他位置，腾出该位置。</p>
+<p>2.从后往前扫描一个比中间数小的元素，并将其放置到（1）中的空位置上，此时后面空出一个位置。</p>
+<p>3.从前往后扫描一个比中间数大的元素，并将其放置到（2）中的空位置上，此时前面空出一个位置。</p>
+<p>重复2、3直到两边扫描到的空位重合，此时将中间元素放在空位中。</p>
+<p>3.3.3算法设计</p>
+<p>分区算法</p>
+<p>1.保存中间元素的值到临时变量x以腾出空间，并且用low指向该元素，即x = A[low];</p>
+<p>2.从后往前搜索比这个数字小的元素，并将其放在空位上，从而在后面腾出一个位置(high指向）</p>
+<p>3.从前往后扫描到比这个数字大的元素，将其放置在（2）中的high上，从而使得前面空出一个位置(low指向）</p>
+<p>重复2、3直到两边扫描的位置重合(low==high,即在该空位前没有更大的元素，此后没有更小的元素）因而可以将中间元素放在此位置，该元素归位。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Partition</span><span class="params">(<span class="keyword">int</span> A[], <span class="keyword">int</span> low,<span class="keyword">int</span> high, <span class="keyword">int</span> &amp;mid)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//low 分区的第一个元素下标，high 作为最后一个元素下标</span></span><br><span class="line">    <span class="comment">//mid为中间元素</span></span><br><span class="line">    A[<span class="number">0</span>] = A[low];</span><br><span class="line">    <span class="keyword">while</span>(low &lt; high) &#123;</span><br><span class="line">        <span class="comment">//A[high] &gt;= mid元素则不交换,high左移</span></span><br><span class="line">        <span class="keyword">while</span>(low &lt; high &amp;&amp; A[high].key &gt;= A[<span class="number">0</span>].key) high--;</span><br><span class="line">        <span class="comment">//右区间遇到第一个小于mid的元素，移动到 A[low]</span></span><br><span class="line">        <span class="comment">//此时A[low]的元素已经取到A[0]</span></span><br><span class="line">        <span class="comment">//同时A[high]已经移动，其为空位置，可以存放其他数据</span></span><br><span class="line">        A[low] = A[high];</span><br><span class="line"></span><br><span class="line">        <span class="comment">//A[low]&lt;= mid 元素，则不交换，low右边移动</span></span><br><span class="line">        <span class="keyword">while</span>(low &lt; high &amp;&amp; A[low].key &lt;= A[<span class="number">0</span>].key) low++;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//左区间遇到第一个大于此中间元素的值，移动到 A[high]</span></span><br><span class="line">        <span class="comment">//此时A[high]空</span></span><br><span class="line">        A[high] = A[low];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//此时low == high 为目标的空位置</span></span><br><span class="line">    A[low] = A[<span class="number">0</span>];<span class="comment">//将中间元素移动到目标位置</span></span><br><span class="line">    mid = low;  <span class="comment">//返回本次中间值的最终位置</span></span><br><span class="line">&#125;</span><br><span class="line">快速排序即用到上述的分区算法</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">QuickSort</span><span class="params">(<span class="keyword">int</span> A[n], <span class="keyword">int</span> low, <span class="keyword">int</span> high)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> mid; <span class="comment">// mid 由Partition函数给出</span></span><br><span class="line">    <span class="keyword">if</span>(low &lt;high)&#123;</span><br><span class="line">        Partition(A,low,high,mid);</span><br><span class="line">        QuickSort(A,low,mid<span class="number">-1</span>);</span><br><span class="line">        QuickSort(A,mid+<span class="number">1</span>,high);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>算法分析：</p>
+<p>1.稳定性：不稳定排序</p>
+<p>2.空间复杂度：需要一个辅助空间</p>
+<p>3.时间复杂度：</p>
+<p>理想情况：每次选择元素正好两等份子表。整个算法复杂度为O(nlog2N)</p>
+<p>最坏情况：每次选择的元素恰为最大/最小。即需要(n-1)次划分，扫描(n-i+1)次。整个复杂度为O(n^2)</p>
+<p>一般情况：O(K*nlog2^N)</p>
+<p>分析可得：划分中中间元素的选择非常重要，因此改进选择为：比较子表第一个、最后一个、中间元素。选取中值作为枢纽元素。</p>
+<p>而快排目前也被认为是内部排序最优解之一。</p>
+<p>四、选择排序</p>
+<p>基本思想：在每次排序中选出关键字最小/最大的元素放在最终位置。</p>
+<p>4.1简单（直接）选择排序</p>
+<p>通过在待排序子表中完整的比较一遍以确定最值元素，并将该元素放在子表的最前/后面。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SelectSort</span><span class="params">(<span class="keyword">int</span> A[],<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//1~n</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> <span class="built_in">min</span> = i;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; n; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(A[j] &lt; A[<span class="built_in">min</span>])</span><br><span class="line">                <span class="built_in">min</span> = j;</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">min</span>!=i) &#123;</span><br><span class="line">                swap(A[<span class="built_in">min</span>],A[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>算法分析：</p>
+<p>稳定性：不稳定排序。</p>
+<p>空间复杂度：需要一个额外空间。O(1)</p>
+<p>时间复杂度：</p>
+<p>共比较n*(n-1)/2次</p>
+<p>最多交换n-1次，一趟最多交换1次</p>
+<p>O(n^2)</p>
+<p>4.2堆排序</p>
+<p>4.2.1堆及其基本概念</p>
+<p>堆实际上是一棵完全二叉树</p>
+<p>​​​​​·若其每个结点均不大于其左右孩子的值，称为小根堆（根结点的值最小）</p>
+<p>·若其每个结点均不小于其左右孩子的值，称为大根堆（根结点的值最大）</p>
+<p>可见，若某序列为堆，其堆顶必为序列中的最大值或最小值。</p>
+<p>堆排序的基本思想：</p>
+<p>假设要求递增排序且已有一个大根堆</p>
+<p>1.输出根</p>
+<p>2.用二叉树的最后一个结点替代根，重新调整堆（待排序元素-1）</p>
+<p>3.重复上述直到输出全部结点。</p>
+<p>可见，要解决两个问题：</p>
+<p>一是如何建立初始堆、二是输出根后如何调整堆。</p>
+<p>4.2.2堆的筛选（调整）</p>
+<p>1.输出根，用二叉树最后一个结点代替新的根。</p>
+<p>2.调整堆，此时，除了跟结点和其左右孩子违反条件外，其余左右子树仍然满足条件。即整个序列不是堆，但其左右子树仍然是堆。</p>
+<p>如何调整：</p>
+<p>1.由于其左右子树是堆，此时左右孩子结点的值分别是两个子树中的最大值。因此，新的堆顶只可能从当前根点、其左右孩子中产生，故可以比较这三者得到。</p>
+<p>2.如果当前根结点已经是最大值，即已经是堆，则无需调整；否则将左右孩子中的最大值与根对换。</p>
+<p>但是调整之后可能违反子树中堆的大小，因此需要在执行调换的子树中继续进行。</p>
+<p>算法设计：</p>
+<p>1.保存临时根的值到一个变量（设为x）用i标记该结点。</p>
+<p>2.比较i结点的左右孩子和x的最大值：</p>
+<p>2.1     i结点没有左右孩子，即已经到达叶子结点。将x填到i结点中。</p>
+<p>2.2     i结点的左右孩子的值小于x的值，表示搜索到了填充位置，将x填入i结点中。</p>
+<p>2.3     否则将左右孩子中的最大填充在i结点中，从而出现新的空位，因此，同样用i指示，并且转2.2继续执行。</p>
+<p>整理可得 所需参数：</p>
+<p>调整中，堆顶的下标不一定为1，因此需要将堆顶的下标作为参数—K,输出根之后，参与运算的元素个数减一，因此，需要将当前序列的元素个数作为参数—M,加上数组参数A[].</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sift</span><span class="params">(<span class="keyword">int</span> A[], <span class="keyword">int</span> k, <span class="keyword">int</span> m)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//调整以K为根的子树序列为堆</span></span><br><span class="line">    <span class="comment">//其中K为子树根，M为最大元素编号</span></span><br><span class="line">    <span class="comment">//假设以2K和2K+1为根的左右子树均为堆</span></span><br><span class="line">    <span class="keyword">int</span> x = A[k];   <span class="comment">//临时保存当前根值，空出位置</span></span><br><span class="line">    <span class="keyword">bool</span> finished = <span class="literal">false</span>;<span class="comment">//设置未结束标志</span></span><br><span class="line">    <span class="keyword">int</span> i = k;            <span class="comment">//i指示空位，子树根</span></span><br><span class="line">    <span class="keyword">int</span> j = <span class="number">2</span>*i;          <span class="comment">//j指向k的左孩子结点</span></span><br><span class="line">    <span class="keyword">while</span>(j&lt;=m &amp;&amp; !finished) &#123;</span><br><span class="line">        <span class="comment">//确定i结点不是叶子且未搜索结束</span></span><br><span class="line">        <span class="keyword">if</span>(j &lt; m &amp;&amp; A[j] &lt; A[j + <span class="number">1</span>])</span><br><span class="line">            j = j +<span class="number">1</span>;<span class="comment">//找出i左右孩子中的最大者，用j指向</span></span><br><span class="line">        <span class="keyword">if</span>(x&gt;=A[j])</span><br><span class="line">            finished = <span class="literal">true</span>;</span><br><span class="line">                    <span class="comment">//根值最大，无需再调整，结束标志置真</span></span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            A[i] = A[j];    <span class="comment">//最大值A[j]上升为树根</span></span><br><span class="line">            i = j;          <span class="comment">//跟新子树根i为j继续调整j以下的子树为堆</span></span><br><span class="line">            j = <span class="number">2</span> * j;      <span class="comment">//继续下筛，i仍为子树树根，j指向其左孩子结点</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    A[i] = x;               <span class="comment">//循环结束i即为x的最终位置，使得K为根的子树为大根堆</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从N/2开始从右往左、自下而上逐棵子树调整。</p>
+<p>建立初堆：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> I = n/<span class="number">2</span>; I&gt;=<span class="number">1</span>;i--)&#123;</span><br><span class="line">    sift(A,i,n);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>堆排序：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HeapSort</span><span class="params">(<span class="keyword">int</span> A[],<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="comment">//初建堆--由初始序列产生堆（此处为大根堆）</span></span><br><span class="line">    <span class="comment">//从第n/2结点开始往上筛，</span></span><br><span class="line">    <span class="comment">//直到1号结点（根、堆顶）</span></span><br><span class="line">    <span class="keyword">for</span>(i = n/<span class="number">2</span>; i&gt;=<span class="number">1</span>;i--) &#123;</span><br><span class="line">        sift(A,i,n);</span><br><span class="line">        <span class="comment">//每次调用此函数，</span></span><br><span class="line">        <span class="comment">//都将以i为根结点的子树调整为堆。</span></span><br><span class="line">    &#125;<span class="comment">//由堆序列产生排序序列，</span></span><br><span class="line">    <span class="comment">//此时整棵树（完全二叉树）为堆（此处为大根堆）</span></span><br><span class="line">    <span class="keyword">for</span>(i=n;i&gt;=<span class="number">2</span>;i--)</span><br><span class="line">    &#123;</span><br><span class="line">        A[<span class="number">0</span>]=A[i];  <span class="comment">//完全二叉树最后一个结点保存到A[0]，</span></span><br><span class="line">        <span class="comment">//空出位置i输出根A[1]，即当前子树的根（堆顶） </span></span><br><span class="line">        A[i]=A[<span class="number">1</span>];  <span class="comment">//输出根，即A[1]保存到排序后的最终位置i</span></span><br><span class="line">        A[<span class="number">1</span>]=A[<span class="number">0</span>];  <span class="comment">//原第i元素暂作为“根”。</span></span><br><span class="line">        <span class="comment">//又A[1]=A[0]后可能破坏了当前树的堆属性，</span></span><br><span class="line">        <span class="comment">//需要从根结点1开始重新调整为堆</span></span><br><span class="line">        <span class="comment">//因为输出根，此时树的结点数为i-1。</span></span><br><span class="line">        sift(A,<span class="number">1</span>,i<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>算法分析：</p>
+<p>稳定性：不稳定。</p>
+<p>空间复杂度：需要一个辅助空间,O(1)</p>
+<p>时间复杂度：</p>
+<p>主要花费在建立初堆和调整堆上。</p>
+<p>高度为h的堆，筛选算法中所进行的关键比较次数最多为2(h-1)次。</p>
+<p>h=floor(log2n)+1;</p>
+<p>即最多为log2N次</p>
+<p>堆排序共调用筛选n-1次；建立初堆共调用筛选n/2次。</p>
+<p>总复杂度为O(nlog2n)</p>
+<p>五、归并排序</p>
+<p>归并排序先设法将原序列划分为只含有1个元素的子表（视为有序）</p>
+<p>然后反复选择两个有序子表进行合并直到合并后的序列长度为n</p>
+<p>归并算法基于两个基本操作：划分和合并</p>
+<p>划分操作将1个未排序序列划分成2个更短的子序列。</p>
+<p>归并操作将2个或者多个有序子序列合并成1个更长的有序序列。</p>
+<p>归并排序可以分为：</p>
+<p>·自顶向下的</p>
+<p>·自底向上的</p>
+<p>归并排序同快速排序一样，都是分治法的典型应用。</p>
+<p>5.1归并</p>
+<p>（同线性表一样的三情况分情况讨论）</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span> A[],<span class="keyword">int</span> B[],<span class="keyword">int</span> C[],<span class="keyword">int</span> la, <span class="keyword">int</span> lb, <span class="keyword">int</span> lc)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//非降序数组A,B前la,lb个元素合并到C 并且保持其次序</span></span><br><span class="line">    <span class="keyword">int</span> ia = <span class="number">1</span>, ib = <span class="number">1</span>, ic = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(ia &lt;= la &amp;&amp; ib &lt;= lb)</span><br><span class="line">        <span class="keyword">if</span>(A[ia]&lt;=B[ib])</span><br><span class="line">            C[ic++] = A[ia++];</span><br><span class="line">        <span class="keyword">else</span> </span><br><span class="line">            C[ic++] = B[ib++];</span><br><span class="line">        <span class="keyword">while</span>(ia &lt;= la)</span><br><span class="line">            C[ic++] = A[ia++];</span><br><span class="line">        <span class="keyword">while</span>(ib&lt;=lb)</span><br><span class="line">            C[ic++] = B[ib++];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>算法分析：</p>
+<p>对于A和B均是一遍扫描，整个时间复杂度为O(|A| + |B|)</p>
+<p>而归并排序中归并的两个字序列要放在同一个表A中，因此要通过元素下标参数对两个字表进行定界。</p>
+<p>通过三个参数low、mid、high来确定2个有序子序列。</p>
+<p>第一个子序列放在A[low~mid]</p>
+<p>第二个子序列放在A[mid+1~high]<br>此外，归并中要把归并后的元素放在一个临时表T中，T的大小与A相同归并完成后，再将T中的元素复制到A中。</p>
+<p>Merge函数需要4个参数：</p>
+<p>A[]存放元素序列 low序列第一个元素下标 high序列最后一个元素下标  mid划分点下标</p>
+<p>改造后的归并序列：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Merge</span><span class="params">(<span class="keyword">int</span> A[], <span class="keyword">int</span> low, <span class="keyword">int</span> mid, <span class="keyword">int</span> high)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> T[<span class="number">10005</span>];</span><br><span class="line">    <span class="keyword">int</span> i, j, k;</span><br><span class="line">    <span class="comment">//i作为low~mid的下标  j作为mid+1~high的下标 k作为T的下标</span></span><br><span class="line">    i = low;</span><br><span class="line">    k = low;</span><br><span class="line">    j = mid + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(i&lt;=mid &amp;&amp; j&lt;=high) &#123;</span><br><span class="line">        <span class="comment">//A两个子表都有元素</span></span><br><span class="line">        <span class="keyword">if</span>(A[i] &lt;= A[j]) &#123;<span class="comment">//A[i]较小</span></span><br><span class="line">            T[k] = A[i];</span><br><span class="line">            i++;</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            T[k] = A[j];</span><br><span class="line">            j++;</span><br><span class="line">        &#125;</span><br><span class="line">        k++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//处理一个表结束，另一个尚未结束的场景</span></span><br><span class="line">    <span class="keyword">while</span>(i&lt;=mid) &#123;</span><br><span class="line">        T[k] = A[i];</span><br><span class="line">        i++;</span><br><span class="line">        k++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(j&lt;=high) &#123;</span><br><span class="line">        T[k] = A[j];</span><br><span class="line">        j++;</span><br><span class="line">        k++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//复制回原表</span></span><br><span class="line">    <span class="built_in">memcpy</span>(A,T, <span class="keyword">sizeof</span>(T));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>自底向上</p>
+<p>·将原序列视为（划分为）n个有序子序列，子序列长度为1，每个子表只有一个元素；</p>
+<p>·当子序列长度小于N的时候，循环选择2个相邻有序子序列，归并</p>
+]]></content>
+      <tags>
+        <tag>数据结构</tag>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数据结构笔记——线性表</title>
+    <url>/2019/12/20/DS-Notes-linear-list/</url>
+    <content><![CDATA[<p>Reference:《数据结构》 安徽大学出版社</p>
+<a id="more"></a>
+<p>链表</p>
+<p>一、何谓链表</p>
+<p>链表是使用不连续的或连续的储存空间来存放线性表的数据元素。</p>
+<p>基本组成是： 结点。</p>
+<p>一个结点由 数据域 和 指针域 组成。</p>
+<p>因为元素之间通过指针的方式进行链接，故称之为链表。</p>
+<p>链表的第一个地址，即头指针 （head)</p>
+<p>单链表的存储描述：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> elementType;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">slNode</span>&#123;</span></span><br><span class="line">    elementType data;       <span class="comment">//数据域</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">slNode</span> *<span class="title">next</span>;</span>    <span class="comment">//指针域</span></span><br><span class="line">&#125;node, *linkList;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>二、动态链表</p>
+<p>操作函数：malloc() free() &amp; new delete</p>
+<p>示：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">    node *p;</span><br><span class="line">    p = (node *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span> (node));</span><br><span class="line">    <span class="built_in">free</span>(p);</span><br><span class="line">    </span><br><span class="line">    node *q;</span><br><span class="line">    q = <span class="keyword">new</span> node;</span><br><span class="line">    <span class="keyword">delete</span> q;</span><br><span class="line">  ```  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">(p与p-&gt;next,p-&gt;next-&gt;next的关系）</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">三、带头结点的链表</span><br><span class="line"></span><br><span class="line">（为什么要使用带头结点的指针？）</span><br><span class="line"></span><br><span class="line">在插入元素的时候，存在着以下几种情况（配图无关）</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">情况一、<span class="number">2</span> &lt;= i &lt;= n;</span><br><span class="line"></span><br><span class="line">即插入元素的位置位于整张链表的中间</span><br><span class="line"></span><br><span class="line">也就是最为普遍的一种插入位置。</span><br><span class="line"></span><br><span class="line">设插入结点为s,前插结点为p</span><br><span class="line"></span><br><span class="line">则</span><br><span class="line">```C++</span><br><span class="line">s-&gt;next = p-&gt;next;</span><br><span class="line"></span><br><span class="line">p-&gt;next = s;</span><br></pre></td></tr></table></figure>
+
+<p>即可完成插入。（顺序务必不能颠倒）</p>
+<p>情况二、i = n + 1</p>
+<p>即在尾部插入结点。</p>
+<p>那么同样的，</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">s-&gt;next = p-&gt;next; 或者 s-&gt;next=<span class="literal">NULL</span>;（在整张表的最后面，当然是<span class="literal">NULL</span>）</span><br><span class="line"></span><br><span class="line">p-&gt;next = s;</span><br></pre></td></tr></table></figure>
+
+<p>（与情况一相同）</p>
+<p>情况三、i = 1;</p>
+<p>由于没有头结点，只有头指针（此时头指针指向第一个元素）</p>
+<p>因此我们需要更新头指针的指向。</p>
+<p>也就是</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">s-&gt;next = head;</span><br><span class="line"></span><br><span class="line">head = s;（头指针此刻变为s）</span><br></pre></td></tr></table></figure>
+
+
+<p>可见，第三种情况下的代码与 前两种有所差异，不方便统一化操作（删除的时候也会有影响）。</p>
+<p>此外，链表的头指针会随着元素在头部的插入而发生变化。</p>
+<p>因此，我们人为地额外在最前面加入一个结点，称之为 头结点（注意与头指针 区分）</p>
+<p>头结点类型与元素结点类型一致，让链表的头指针指向头结点，头结点的next指针，即head-&gt;next,指向首元素结点。</p>
+<p>加了头结点的链表叫做 带头结点链表</p>
+<p>而带头结点链表的空链表只需将头结点next = NULL即可。</p>
+<p>好处：</p>
+<p>加了头结点之后，所有操作只能在头结点之后进行，保证了所有位置上插入删除步骤的一致性。</p>
+<p>（该图非常重要，务必理解）</p>
+<p>四、链表的基本运算</p>
+<p>4.1初始化链表</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">initList</span><span class="params">(node * &amp;L)</span> </span>&#123;   <span class="comment">//指针的引用 由于需要返回一个指针</span></span><br><span class="line">    L = <span class="keyword">new</span> node;</span><br><span class="line">    L-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">iniList_1</span><span class="params">(node * *L)</span> </span>&#123;   <span class="comment">//指针的指针</span></span><br><span class="line">    (*L)= (node *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(node));</span><br><span class="line">    (*L)-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">node *<span class="title">initList_2</span><span class="params">()</span> </span>&#123;           <span class="comment">//指针的返回值</span></span><br><span class="line">    node *p;</span><br><span class="line">    p = (node*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(node));</span><br><span class="line">    p-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4.2求链表长度</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">listLength</span><span class="params">(node *L)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> len = <span class="number">0</span>;</span><br><span class="line">    node *p = L-&gt;next;</span><br><span class="line">    <span class="keyword">while</span>(p!=<span class="literal">NULL</span>) &#123;</span><br><span class="line">        len++;</span><br><span class="line">        p = p-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> len;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">listLength_1</span><span class="params">(node &amp;L)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> len = <span class="number">0</span>;</span><br><span class="line">    node *P = L.next;</span><br><span class="line">    <span class="keyword">while</span>(P!=<span class="literal">NULL</span>) &#123;</span><br><span class="line">        len++;</span><br><span class="line">        P=P-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> len;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>思考：</p>
+<p>若算法初始化的时候，p指向头结点，即p = L，而非首元素结点，如何修改？</p>
+<p>（提示：p-&gt;next!=NULL)</p>
+<p>4.3按序号取元素结点</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">node * <span class="title">getElement</span><span class="params">(node *L, <span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">    node *p = L-&gt;next;</span><br><span class="line">    <span class="keyword">int</span> j = i;</span><br><span class="line">    <span class="keyword">while</span>(j!=i &amp;&amp; p != <span class="literal">NULL</span>) &#123;</span><br><span class="line">        j++;</span><br><span class="line">        p = p-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>思考：如果取元素失败，返回值是？</p>
+<p>（提示：NULL）</p>
+<p>4.4按值查询元素</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">listLocate</span><span class="params">(node *L, elementType x)</span> </span>&#123;</span><br><span class="line">    node *p = L-&gt;next;</span><br><span class="line">    <span class="keyword">while</span>(p != <span class="literal">NULL</span> &amp;&amp; p-&gt;data != x) &#123;</span><br><span class="line">        p=p-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>  p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>4.5插入</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">listInsert</span><span class="params">(node *L, <span class="keyword">int</span> i, elementType x)</span></span>&#123;</span><br><span class="line">    node *p = L-&gt;next;</span><br><span class="line">    <span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(j != i<span class="number">-1</span> &amp;&amp; p != <span class="literal">NULL</span>) &#123;  <span class="comment">//while找到待插入结点的前一个结点</span></span><br><span class="line">        p=p-&gt;next;</span><br><span class="line">        j++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(p==<span class="literal">NULL</span>) <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">//0代表插入位置有错误</span></span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        node *s;                    <span class="comment">//待插入结点</span></span><br><span class="line">        s = <span class="keyword">new</span> node;</span><br><span class="line">        s-&gt;data = x;</span><br><span class="line">        s-&gt;next = p-&gt;next;</span><br><span class="line">        p-&gt;next = s;</span><br><span class="line">    &#125;       </span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;               <span class="comment">//1代表插入成功</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>请务必思考：为什么这里没有对插入位置一开始进行判断？</p>
+<p>（提示：因为不论是i&lt;1还是i&gt;=n+2, p结点最后都会到NULL，因此仅需判断p是否为NULL即可。）</p>
+<p>4.6删除</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">listDelete</span><span class="params">(node *L, <span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">    node *u;</span><br><span class="line">    node *p = L;</span><br><span class="line">    <span class="keyword">int</span> k = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(k != i<span class="number">-1</span> &amp;<span class="number">7</span> p != <span class="literal">NULL</span>) &#123;</span><br><span class="line">        p = p-&gt;next;</span><br><span class="line">        k++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(p == <span class="literal">NULL</span> || p-&gt;next == <span class="literal">NULL</span>) </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        u = p-&gt;next;</span><br><span class="line">        p-&gt;next = u-&gt;next;</span><br><span class="line">        <span class="keyword">delete</span> u;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>4.7链表的构造</p>
+<p>共有两种方式</p>
+<p>4.7.1 尾插法建立链表</p>
+<p>需要用一个额外的尾指针R，初始的时候R指向L，随着元素的插入R不断后移，始终指向最后一个元素。</p>
+<p>尾插法的插入顺序是按照原数据顺序的。</p>
+<p>4.7.2头插法建立链表</p>
+<p>由于头指针的存在，因此头插法并不需要额外的指针。</p>
+<p>头插法的插入后的顺序与原数据顺序相反。</p>
+<p>代码：//这里以-9999作为结束标识符。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//尾插法建立链表</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">createList</span><span class="params">(node * &amp;L)</span> </span>&#123;</span><br><span class="line">    elementType x;</span><br><span class="line">    node *u, * R;       <span class="comment">//R为尾指针</span></span><br><span class="line"></span><br><span class="line">    L = <span class="keyword">new</span> node;</span><br><span class="line">    R = L;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; x;</span><br><span class="line">    <span class="keyword">while</span>(x!=<span class="number">-9999</span>) &#123;</span><br><span class="line">        u = <span class="keyword">new</span> node;</span><br><span class="line">        u -&gt; data = x;</span><br><span class="line">        u -&gt;next = <span class="literal">NULL</span>; <span class="comment">// u-&gt;next = R -&gt; next;</span></span><br><span class="line">        R-&gt;next = u;        <span class="comment">//新的结点到链表尾部</span></span><br><span class="line">        R = u;              <span class="comment">//尾指针后移</span></span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; x;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//头插法建立链表</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">createList_2</span><span class="params">(node * &amp;L)</span> </span>&#123;</span><br><span class="line">    elementType x;</span><br><span class="line">    node *u;</span><br><span class="line">    L = <span class="keyword">new</span> node;</span><br><span class="line">    L -&gt; next = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; x;</span><br><span class="line">    <span class="keyword">while</span>(x!=<span class="number">-9999</span>) &#123;</span><br><span class="line">        u = <span class="keyword">new</span> node;</span><br><span class="line">        u -&gt;data = x;</span><br><span class="line">        u -&gt;next = L -&gt;next;</span><br><span class="line">        L -&gt;next = u;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; x;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>数据结构</tag>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>First Training</title>
+    <url>/2019/12/10/first-Training/</url>
+    <content><![CDATA[<p>#第一次训练赛</p>
+<a id="more"></a>
+
+<p>1.快速幂</p>
+<p>二进制快速幂</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">ll <span class="title">qpow</span><span class="params">(ll a, ll b)</span> </span>&#123;</span><br><span class="line">    ll ans = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(b) &#123;</span><br><span class="line">        <span class="keyword">if</span>(b&amp;<span class="number">1</span>) ans = ans * a % mod;</span><br><span class="line">        a = a * a %mod;</span><br><span class="line">        b&gt;&gt;=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>十进制快速幂</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">ll <span class="title">tqpow</span><span class="params">(ll a)</span> </span>&#123;</span><br><span class="line">    ll ans = <span class="number">1</span>, s = a;</span><br><span class="line">    <span class="keyword">while</span>(t&gt;=<span class="number">0</span>) &#123;</span><br><span class="line">        ll cnt = c[t] - <span class="string">'0'</span>, cur = s;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= cnt; i++)</span><br><span class="line">            ans = ans * s % mod;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; <span class="number">10</span>; i++)</span><br><span class="line">            cur = cur * s % mod;</span><br><span class="line">        s = cur;</span><br><span class="line">        ans %= mod;</span><br><span class="line">        t--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>例题：<a href="http://acm.hdu.edu.cn/showproblem.php?pid=1061" target="_blank" rel="noopener">http://acm.hdu.edu.cn/showproblem.php?pid=1061</a></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">1e5</span>+<span class="number">7</span>;</span><br><span class="line"><span class="keyword">char</span> c[MAXN];</span><br><span class="line">ll b,t;</span><br><span class="line">ll mod = <span class="number">10</span>;</span><br><span class="line"><span class="function">ll <span class="title">tqpow</span><span class="params">(ll a)</span> </span>&#123;</span><br><span class="line">    ll ans = <span class="number">1</span>, s = a;</span><br><span class="line">    <span class="keyword">while</span>(t&gt;=<span class="number">0</span>) &#123;</span><br><span class="line">        ll cnt = c[t] - <span class="string">'0'</span>, cur = s;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= cnt; i++)</span><br><span class="line">            ans = ans * s % mod;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; <span class="number">10</span>; i++)</span><br><span class="line">            cur = cur * s % mod;</span><br><span class="line">        s = cur;</span><br><span class="line">        ans %= mod;</span><br><span class="line">        t--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line">ll T;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; T;</span><br><span class="line">    <span class="keyword">while</span>(T--) &#123;</span><br><span class="line">       <span class="built_in">cin</span> &gt;&gt; c;</span><br><span class="line">       t = <span class="built_in">strlen</span>(c);</span><br><span class="line">        t--;</span><br><span class="line">        ll qq = <span class="number">1</span>;</span><br><span class="line">       b = <span class="number">0</span>;</span><br><span class="line">       <span class="keyword">for</span>(<span class="keyword">int</span> i = t; i&gt;=<span class="number">0</span>;i--) &#123;</span><br><span class="line">           b += qq * (c[i] - <span class="string">'0'</span>);</span><br><span class="line">           qq *= <span class="number">10</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="built_in">cout</span> &lt;&lt; tqpow(b)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.矩阵快速幂</p>
+<p>题目链接：<a href="http://acm.hdu.edu.cn/showproblem.php?pid=1575（求n*n矩阵的k次方%mod" target="_blank" rel="noopener">http://acm.hdu.edu.cn/showproblem.php?pid=1575（求n*n矩阵的k次方%mod</a>)</p>
+<p>矩阵快速幂AC</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">1e2</span>+<span class="number">7</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod = <span class="number">9973</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">martrix</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> a[MAXN][MAXN];</span><br><span class="line">&#125;m1,m2;</span><br><span class="line">ll n, k;</span><br><span class="line"><span class="function">martrix <span class="title">mul</span><span class="params">(martrix m1, martrix m2)</span> </span>&#123;</span><br><span class="line">    martrix m3;</span><br><span class="line">    <span class="built_in">memset</span>(m3.a, <span class="number">0</span>, <span class="keyword">sizeof</span> m3.a);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; j++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">1</span>;k &lt;= n; k++) &#123;</span><br><span class="line">                m3.a[i][j] += m1.a[i][k]*m2.a[k][j];</span><br><span class="line">                m3.a[i][j] %= mod;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> m3;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">martrix <span class="title">mpow</span><span class="params">(martrix m1)</span> </span>&#123;</span><br><span class="line">    martrix res;</span><br><span class="line">    <span class="built_in">memset</span>(res.a, <span class="number">0</span>, <span class="keyword">sizeof</span> res.a);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) res.a[i][i] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(k!=<span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span>(k%<span class="number">2</span>!=<span class="number">0</span>) &#123;</span><br><span class="line">            res = mul(res,m1);</span><br><span class="line">            k--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            m1 = mul(m1,m1);</span><br><span class="line">            k&gt;&gt;=<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> t;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; t;</span><br><span class="line">    <span class="keyword">while</span>(t--) &#123;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; k;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; j++) &#123;</span><br><span class="line">                <span class="built_in">cin</span> &gt;&gt; m1.a[i][j];</span><br><span class="line">                m1.a[i][j]%=mod;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        m2 = mpow(m1);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            sum += m2.a[i][i];</span><br><span class="line">            sum %= mod;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; sum &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>题目：<a href="http://acm.hdu.edu.cn/showproblem.php?pid=2157（本题见详解）" target="_blank" rel="noopener">http://acm.hdu.edu.cn/showproblem.php?pid=2157（本题见详解）</a></p>
+<p><a href="https://blog.csdn.net/Sensente/article/details/103234396" target="_blank" rel="noopener">https://blog.csdn.net/Sensente/article/details/103234396</a></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="keyword">char</span> s[<span class="number">50</span>+<span class="number">5</span>];</span><br><span class="line"><span class="keyword">int</span> num1, num0;</span><br><span class="line"><span class="keyword">int</span> onum1,onum0;</span><br><span class="line"><span class="keyword">int</span> lens;</span><br><span class="line"><span class="keyword">bool</span> f;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="keyword">if</span>(n == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; s;</span><br><span class="line">        <span class="keyword">int</span> len = <span class="built_in">strlen</span>(s);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>, j = len <span class="number">-1</span>; i&lt;len/<span class="number">2</span>,j&gt;len/<span class="number">2</span>;i++,j--) &#123;</span><br><span class="line">            <span class="keyword">if</span>(s[i] == s[j]) f = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">else</span> &#123;f = <span class="number">1</span>;<span class="keyword">break</span>;&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(f) <span class="built_in">cout</span> &lt;&lt; <span class="number">0</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="built_in">cout</span> &lt;&lt; <span class="number">1</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">int</span> k = n;</span><br><span class="line">        <span class="keyword">while</span>(k--) &#123;</span><br><span class="line">            <span class="built_in">cin</span> &gt;&gt; s;</span><br><span class="line">            <span class="keyword">int</span> len = <span class="built_in">strlen</span>(s);</span><br><span class="line">            lens += len/<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(s[i] == <span class="string">'0'</span>) num0++;</span><br><span class="line">                <span class="keyword">else</span> num1++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        num0 /= <span class="number">2</span>;</span><br><span class="line">        num1 /= <span class="number">2</span>;</span><br><span class="line">        <span class="comment">//cout &lt;&lt; lens &lt;&lt;" " &lt;&lt; num1 &lt;&lt; " "&lt;&lt;num0 &lt;&lt; endl;</span></span><br><span class="line">        <span class="keyword">if</span>(lens &lt;= num1 + num0) <span class="built_in">cout</span> &lt;&lt; n &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="built_in">cout</span> &lt;&lt; n<span class="number">-1</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>训练赛</tag>
+        <tag>题解</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>From Beginning</title>
     <url>/2019/11/09/hello/</url>
     <content><![CDATA[<p>“HELLO”</p>

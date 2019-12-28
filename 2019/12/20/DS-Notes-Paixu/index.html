@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据结构,学习笔记," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Reference:《数据结构》 安徽大学出版社">
+<meta name="keywords" content="数据结构,学习笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构笔记——排序">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;20&#x2F;DS-Notes-Paixu&#x2F;index.html">
+<meta property="og:site_name" content="Cheng&#39;s Blog">
+<meta property="og:description" content="Reference:《数据结构》 安徽大学出版社">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-12-28T03:42:53.248Z">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/12/20/DS-Notes-Paixu/"/>
+
+
+
+
+
+  <title>数据结构笔记——排序 | Cheng's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Cheng's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" target="_blank" rel="noopener" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/20/DS-Notes-Paixu/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Eric Cheng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/IMG_3227.JPG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cheng's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据结构笔记——排序</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-20T08:37:33+08:00">
+                2019-12-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                   字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                   分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Reference:《数据结构》 安徽大学出版社</p>
+<a id="more"></a>
+<p>一、基本概念</p>
+<p>1.1增排序和减排序</p>
+<p>按关键字从大到小或从小到大划分。</p>
+<p>1.2内部排序和外部排序</p>
+<p>数据元素均在内存中即内部排序，否则则包含外部排序。</p>
+<p>1.3稳定排序和不稳定排序</p>
+<p>关键字相同的两个元素，排序后相对位置发生变化即不稳定，否则即稳定。</p>
+<p>1.4排序算法的评价指标</p>
+<p>时间复杂度   和   空间复杂度。</p>
+<p>二、插入排序</p>
+<p>2.1基本思想</p>
+<p>将待排序表看作左右两个部分，左边为有序区，右边为无序区，整个排序过程就是将右边无序区的元素逐个插入到有序区中，以构成有序区。主要介绍 直接插入排序和希尔排序。</p>
+<p>2.2直接插入排序</p>
+<p>现直接给出代码和注释：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insertSort</span><span class="params">(elementType A[n+<span class="number">1</span>])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++)&#123;        <span class="comment">//I表示待插入元素的下标</span></span><br><span class="line">        A[<span class="number">0</span>] = A[I];                    <span class="comment">//设置监视哨保存待插入元素，以腾出A[i]的空间</span></span><br><span class="line">        j = I - <span class="number">1</span>;                      <span class="comment">//j表示当前空位置的前一个</span></span><br><span class="line">        <span class="keyword">while</span>(A[j].key &gt; A[<span class="number">0</span>].key)&#123;     <span class="comment">//搜索插入位置并腾出空位</span></span><br><span class="line">            A[j+<span class="number">1</span>] = A[j];</span><br><span class="line">            j = j - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        A[j+<span class="number">1</span>] = A[<span class="number">0</span>];                  <span class="comment">//插入元素</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>算法分析：</p>
+<p>1.稳定性：该算法为稳定算法。</p>
+<p>2.空间性能：该算法仅需要一个记录的监视哨辅助空间。</p>
+<p>3.时间性能：整个算法循环n-1次，每次循环中的基本操作为比较和移动元素，一般情况下为O(N^2).</p>
+<p>2.3希尔排序(Shell Sort)</p>
+<p>基本思想：将待排序的序列划分为若干组别，在每组内进行直接选择插入排序，以使得整个序列基本有序，然后再对整个序列进行直接插入排序。</p>
+<p>这种排序的关键在于选组。而我们所决定的选择是将整个序列的长度的1/2在初始选择为步长。后面依次递减1/2。</p>
+<p>伪代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ShellSort</span><span class="params">(elementType A[n+<span class="number">1</span>], <span class="keyword">int</span> dh)</span> </span>&#123; <span class="comment">//dh means the ORIGINAL FOOTSTEP</span></span><br><span class="line">    <span class="keyword">while</span>(dh&gt;=<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span>(I = dh + <span class="number">1</span>; I &lt;= n; I++)&#123;</span><br><span class="line">            temp = A[I];</span><br><span class="line">            j = I;</span><br><span class="line">            <span class="keyword">while</span>(j &gt; d &amp;&amp; temp.key&lt;A[j-dh].key)&#123;</span><br><span class="line">                A[j] = A[j-dh];</span><br><span class="line">                j = j - dh;</span><br><span class="line">            &#125;</span><br><span class="line">            A[j] = temp;    </span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">            dh = dh/<span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>算法分析：</p>
+<p>希尔排序是分组插入排序，先按照规定将元素分组，同一组内采用直接插入排序。</p>
+<p>对比希尔排序和直接插入排序，希尔排序除了分组循环外，其余同插入排序几乎完全一致，只是步长从1变为了dh</p>
+<p>1.该算法为不稳定算法。</p>
+<p>2.空间复杂度为O(1)</p>
+<p>3.时间复杂度为O(nlog2N)</p>
+<p>   与分区方法有很大关系</p>
+<p>   性能优于直接插入排序，时间复杂度介于O(n)和O(n^2)之间，大致为O(1.3)或O(1.5)</p>
+<p>三、交换排序</p>
+<p>两两比较待排序元素，发现倒序则交换。</p>
+<p>3.1冒泡排序</p>
+<p>逐个比较两相邻元素，发现倒序则交换。</p>
+<p>典型做法是从后往前（从下往上）逐个比较相邻2个元素，发现倒序则交换。</p>
+<p>每次扫描一定能将当前最小/大的元素交换到最终位置，如同水泡冒出水面</p>
+<p>伪代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bubbleSort</span><span class="params">(<span class="keyword">int</span> A[])</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> I = <span class="number">1</span>; I &lt; n; I++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = n; j &gt;= I + <span class="number">1</span>; j--)&#123;</span><br><span class="line">            <span class="keyword">if</span>(A[j].key&lt;A[j<span class="number">-1</span>].key)&#123;</span><br><span class="line">                swap(A[j],A[j<span class="number">-1</span>]; <span class="comment">//SWAP in IOSTREAM</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>改进的冒泡排序<br>接下来考虑一种极端情况：序列本身就是有序。</p>
+<p>此种情况下，依然将进行O(n^2)级别的扫描。</p>
+<p>很明显不够划算。</p>
+<p>因此，我们可以设置一种含有标志是否已经交换完成的标志。这样作为每次冒泡排序完成后是否还需要继续的标志。</p>
+<p>因此得到的改进算法如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bubbleSort</span><span class="params">(<span class="keyword">int</span> A[n+<span class="number">1</span>])</span> </span>&#123;</span><br><span class="line">I = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">do</span>&#123;</span><br><span class="line">    exchanged = FALSE; <span class="comment">// As a sign of Exchanged or not</span></span><br><span class="line">    <span class="keyword">for</span>(j = n; j &gt;= I + <span class="number">1</span>; j--) &#123;</span><br><span class="line">        <span class="keyword">if</span>(A[j].key &lt; A[j<span class="number">-1</span>].key)&#123;</span><br><span class="line">            swap(A[j],A[j<span class="number">-1</span>]);</span><br><span class="line">            exchanged = TRUE;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    I++;</span><br><span class="line">    &#125;<span class="keyword">while</span>(I&lt;=n<span class="number">-1</span>&amp;&amp;exchanged == TRUE);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>算法分析：</p>
+<p>稳定性：稳定排序</p>
+<p>空间复杂度：O(1)的辅助空间</p>
+<p>时间复杂度：</p>
+<p>受到数据表初始状态影响大。</p>
+<p>最好情况：正序 比较n-1次，交换 0 次， 时间复杂度O(n)</p>
+<p>最坏情况：全部逆序 比较与交换 均为 n*(n-1)/2;</p>
+<p>一般:O(n^2)</p>
+<p>3.2快速排序</p>
+<p>3.2.1基本思想：分治法。</p>
+<p>选定一个元素作为中间元素，然后将表中所有元素与之比较：</p>
+<p>比其小的放在表的前面；</p>
+<p>比其大的放在表的后面；</p>
+<p>该元素放在两部分中间做划分，这就是其最终位置。</p>
+<p>这样就可以得到一个划分（二分）</p>
+<p>然后对左右子表再分别进行划分。</p>
+<p>快速排序通过一趟排序将排序序列分成左右两部分，使得左边任意元素均不大于/小于右边任意元素，并将中间元素放到最终位置。</p>
+<p>3.2.2操作方法</p>
+<p>选择第一个元素作为中间元素</p>
+<p>1.先保存该元素到其他位置，腾出该位置。</p>
+<p>2.从后往前扫描一个比中间数小的元素，并将其放置到（1）中的空位置上，此时后面空出一个位置。</p>
+<p>3.从前往后扫描一个比中间数大的元素，并将其放置到（2）中的空位置上，此时前面空出一个位置。</p>
+<p>重复2、3直到两边扫描到的空位重合，此时将中间元素放在空位中。</p>
+<p>3.3.3算法设计</p>
+<p>分区算法</p>
+<p>1.保存中间元素的值到临时变量x以腾出空间，并且用low指向该元素，即x = A[low];</p>
+<p>2.从后往前搜索比这个数字小的元素，并将其放在空位上，从而在后面腾出一个位置(high指向）</p>
+<p>3.从前往后扫描到比这个数字大的元素，将其放置在（2）中的high上，从而使得前面空出一个位置(low指向）</p>
+<p>重复2、3直到两边扫描的位置重合(low==high,即在该空位前没有更大的元素，此后没有更小的元素）因而可以将中间元素放在此位置，该元素归位。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Partition</span><span class="params">(<span class="keyword">int</span> A[], <span class="keyword">int</span> low,<span class="keyword">int</span> high, <span class="keyword">int</span> &amp;mid)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//low 分区的第一个元素下标，high 作为最后一个元素下标</span></span><br><span class="line">    <span class="comment">//mid为中间元素</span></span><br><span class="line">    A[<span class="number">0</span>] = A[low];</span><br><span class="line">    <span class="keyword">while</span>(low &lt; high) &#123;</span><br><span class="line">        <span class="comment">//A[high] &gt;= mid元素则不交换,high左移</span></span><br><span class="line">        <span class="keyword">while</span>(low &lt; high &amp;&amp; A[high].key &gt;= A[<span class="number">0</span>].key) high--;</span><br><span class="line">        <span class="comment">//右区间遇到第一个小于mid的元素，移动到 A[low]</span></span><br><span class="line">        <span class="comment">//此时A[low]的元素已经取到A[0]</span></span><br><span class="line">        <span class="comment">//同时A[high]已经移动，其为空位置，可以存放其他数据</span></span><br><span class="line">        A[low] = A[high];</span><br><span class="line"></span><br><span class="line">        <span class="comment">//A[low]&lt;= mid 元素，则不交换，low右边移动</span></span><br><span class="line">        <span class="keyword">while</span>(low &lt; high &amp;&amp; A[low].key &lt;= A[<span class="number">0</span>].key) low++;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//左区间遇到第一个大于此中间元素的值，移动到 A[high]</span></span><br><span class="line">        <span class="comment">//此时A[high]空</span></span><br><span class="line">        A[high] = A[low];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//此时low == high 为目标的空位置</span></span><br><span class="line">    A[low] = A[<span class="number">0</span>];<span class="comment">//将中间元素移动到目标位置</span></span><br><span class="line">    mid = low;  <span class="comment">//返回本次中间值的最终位置</span></span><br><span class="line">&#125;</span><br><span class="line">快速排序即用到上述的分区算法</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">QuickSort</span><span class="params">(<span class="keyword">int</span> A[n], <span class="keyword">int</span> low, <span class="keyword">int</span> high)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> mid; <span class="comment">// mid 由Partition函数给出</span></span><br><span class="line">    <span class="keyword">if</span>(low &lt;high)&#123;</span><br><span class="line">        Partition(A,low,high,mid);</span><br><span class="line">        QuickSort(A,low,mid<span class="number">-1</span>);</span><br><span class="line">        QuickSort(A,mid+<span class="number">1</span>,high);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>算法分析：</p>
+<p>1.稳定性：不稳定排序</p>
+<p>2.空间复杂度：需要一个辅助空间</p>
+<p>3.时间复杂度：</p>
+<p>理想情况：每次选择元素正好两等份子表。整个算法复杂度为O(nlog2N)</p>
+<p>最坏情况：每次选择的元素恰为最大/最小。即需要(n-1)次划分，扫描(n-i+1)次。整个复杂度为O(n^2)</p>
+<p>一般情况：O(K*nlog2^N)</p>
+<p>分析可得：划分中中间元素的选择非常重要，因此改进选择为：比较子表第一个、最后一个、中间元素。选取中值作为枢纽元素。</p>
+<p>而快排目前也被认为是内部排序最优解之一。</p>
+<p>四、选择排序</p>
+<p>基本思想：在每次排序中选出关键字最小/最大的元素放在最终位置。</p>
+<p>4.1简单（直接）选择排序</p>
+<p>通过在待排序子表中完整的比较一遍以确定最值元素，并将该元素放在子表的最前/后面。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SelectSort</span><span class="params">(<span class="keyword">int</span> A[],<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//1~n</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> <span class="built_in">min</span> = i;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; n; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(A[j] &lt; A[<span class="built_in">min</span>])</span><br><span class="line">                <span class="built_in">min</span> = j;</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">min</span>!=i) &#123;</span><br><span class="line">                swap(A[<span class="built_in">min</span>],A[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>算法分析：</p>
+<p>稳定性：不稳定排序。</p>
+<p>空间复杂度：需要一个额外空间。O(1)</p>
+<p>时间复杂度：</p>
+<p>共比较n*(n-1)/2次</p>
+<p>最多交换n-1次，一趟最多交换1次</p>
+<p>O(n^2)</p>
+<p>4.2堆排序</p>
+<p>4.2.1堆及其基本概念</p>
+<p>堆实际上是一棵完全二叉树</p>
+<p>​​​​​·若其每个结点均不大于其左右孩子的值，称为小根堆（根结点的值最小）</p>
+<p>·若其每个结点均不小于其左右孩子的值，称为大根堆（根结点的值最大）</p>
+<p>可见，若某序列为堆，其堆顶必为序列中的最大值或最小值。</p>
+<p>堆排序的基本思想：</p>
+<p>假设要求递增排序且已有一个大根堆</p>
+<p>1.输出根</p>
+<p>2.用二叉树的最后一个结点替代根，重新调整堆（待排序元素-1）</p>
+<p>3.重复上述直到输出全部结点。</p>
+<p>可见，要解决两个问题：</p>
+<p>一是如何建立初始堆、二是输出根后如何调整堆。</p>
+<p>4.2.2堆的筛选（调整）</p>
+<p>1.输出根，用二叉树最后一个结点代替新的根。</p>
+<p>2.调整堆，此时，除了跟结点和其左右孩子违反条件外，其余左右子树仍然满足条件。即整个序列不是堆，但其左右子树仍然是堆。</p>
+<p>如何调整：</p>
+<p>1.由于其左右子树是堆，此时左右孩子结点的值分别是两个子树中的最大值。因此，新的堆顶只可能从当前根点、其左右孩子中产生，故可以比较这三者得到。</p>
+<p>2.如果当前根结点已经是最大值，即已经是堆，则无需调整；否则将左右孩子中的最大值与根对换。</p>
+<p>但是调整之后可能违反子树中堆的大小，因此需要在执行调换的子树中继续进行。</p>
+<p>算法设计：</p>
+<p>1.保存临时根的值到一个变量（设为x）用i标记该结点。</p>
+<p>2.比较i结点的左右孩子和x的最大值：</p>
+<p>2.1     i结点没有左右孩子，即已经到达叶子结点。将x填到i结点中。</p>
+<p>2.2     i结点的左右孩子的值小于x的值，表示搜索到了填充位置，将x填入i结点中。</p>
+<p>2.3     否则将左右孩子中的最大填充在i结点中，从而出现新的空位，因此，同样用i指示，并且转2.2继续执行。</p>
+<p>整理可得 所需参数：</p>
+<p>调整中，堆顶的下标不一定为1，因此需要将堆顶的下标作为参数—K,输出根之后，参与运算的元素个数减一，因此，需要将当前序列的元素个数作为参数—M,加上数组参数A[].</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sift</span><span class="params">(<span class="keyword">int</span> A[], <span class="keyword">int</span> k, <span class="keyword">int</span> m)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//调整以K为根的子树序列为堆</span></span><br><span class="line">    <span class="comment">//其中K为子树根，M为最大元素编号</span></span><br><span class="line">    <span class="comment">//假设以2K和2K+1为根的左右子树均为堆</span></span><br><span class="line">    <span class="keyword">int</span> x = A[k];   <span class="comment">//临时保存当前根值，空出位置</span></span><br><span class="line">    <span class="keyword">bool</span> finished = <span class="literal">false</span>;<span class="comment">//设置未结束标志</span></span><br><span class="line">    <span class="keyword">int</span> i = k;            <span class="comment">//i指示空位，子树根</span></span><br><span class="line">    <span class="keyword">int</span> j = <span class="number">2</span>*i;          <span class="comment">//j指向k的左孩子结点</span></span><br><span class="line">    <span class="keyword">while</span>(j&lt;=m &amp;&amp; !finished) &#123;</span><br><span class="line">        <span class="comment">//确定i结点不是叶子且未搜索结束</span></span><br><span class="line">        <span class="keyword">if</span>(j &lt; m &amp;&amp; A[j] &lt; A[j + <span class="number">1</span>])</span><br><span class="line">            j = j +<span class="number">1</span>;<span class="comment">//找出i左右孩子中的最大者，用j指向</span></span><br><span class="line">        <span class="keyword">if</span>(x&gt;=A[j])</span><br><span class="line">            finished = <span class="literal">true</span>;</span><br><span class="line">                    <span class="comment">//根值最大，无需再调整，结束标志置真</span></span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            A[i] = A[j];    <span class="comment">//最大值A[j]上升为树根</span></span><br><span class="line">            i = j;          <span class="comment">//跟新子树根i为j继续调整j以下的子树为堆</span></span><br><span class="line">            j = <span class="number">2</span> * j;      <span class="comment">//继续下筛，i仍为子树树根，j指向其左孩子结点</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    A[i] = x;               <span class="comment">//循环结束i即为x的最终位置，使得K为根的子树为大根堆</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从N/2开始从右往左、自下而上逐棵子树调整。</p>
+<p>建立初堆：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> I = n/<span class="number">2</span>; I&gt;=<span class="number">1</span>;i--)&#123;</span><br><span class="line">    sift(A,i,n);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>堆排序：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HeapSort</span><span class="params">(<span class="keyword">int</span> A[],<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="comment">//初建堆--由初始序列产生堆（此处为大根堆）</span></span><br><span class="line">    <span class="comment">//从第n/2结点开始往上筛，</span></span><br><span class="line">    <span class="comment">//直到1号结点（根、堆顶）</span></span><br><span class="line">    <span class="keyword">for</span>(i = n/<span class="number">2</span>; i&gt;=<span class="number">1</span>;i--) &#123;</span><br><span class="line">        sift(A,i,n);</span><br><span class="line">        <span class="comment">//每次调用此函数，</span></span><br><span class="line">        <span class="comment">//都将以i为根结点的子树调整为堆。</span></span><br><span class="line">    &#125;<span class="comment">//由堆序列产生排序序列，</span></span><br><span class="line">    <span class="comment">//此时整棵树（完全二叉树）为堆（此处为大根堆）</span></span><br><span class="line">    <span class="keyword">for</span>(i=n;i&gt;=<span class="number">2</span>;i--)</span><br><span class="line">    &#123;</span><br><span class="line">        A[<span class="number">0</span>]=A[i];  <span class="comment">//完全二叉树最后一个结点保存到A[0]，</span></span><br><span class="line">        <span class="comment">//空出位置i输出根A[1]，即当前子树的根（堆顶） </span></span><br><span class="line">        A[i]=A[<span class="number">1</span>];  <span class="comment">//输出根，即A[1]保存到排序后的最终位置i</span></span><br><span class="line">        A[<span class="number">1</span>]=A[<span class="number">0</span>];  <span class="comment">//原第i元素暂作为“根”。</span></span><br><span class="line">        <span class="comment">//又A[1]=A[0]后可能破坏了当前树的堆属性，</span></span><br><span class="line">        <span class="comment">//需要从根结点1开始重新调整为堆</span></span><br><span class="line">        <span class="comment">//因为输出根，此时树的结点数为i-1。</span></span><br><span class="line">        sift(A,<span class="number">1</span>,i<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>算法分析：</p>
+<p>稳定性：不稳定。</p>
+<p>空间复杂度：需要一个辅助空间,O(1)</p>
+<p>时间复杂度：</p>
+<p>主要花费在建立初堆和调整堆上。</p>
+<p>高度为h的堆，筛选算法中所进行的关键比较次数最多为2(h-1)次。</p>
+<p>h=floor(log2n)+1;</p>
+<p>即最多为log2N次</p>
+<p>堆排序共调用筛选n-1次；建立初堆共调用筛选n/2次。</p>
+<p>总复杂度为O(nlog2n)</p>
+<p>五、归并排序</p>
+<p>归并排序先设法将原序列划分为只含有1个元素的子表（视为有序）</p>
+<p>然后反复选择两个有序子表进行合并直到合并后的序列长度为n</p>
+<p>归并算法基于两个基本操作：划分和合并</p>
+<p>划分操作将1个未排序序列划分成2个更短的子序列。</p>
+<p>归并操作将2个或者多个有序子序列合并成1个更长的有序序列。</p>
+<p>归并排序可以分为：</p>
+<p>·自顶向下的</p>
+<p>·自底向上的</p>
+<p>归并排序同快速排序一样，都是分治法的典型应用。</p>
+<p>5.1归并</p>
+<p>（同线性表一样的三情况分情况讨论）</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span> A[],<span class="keyword">int</span> B[],<span class="keyword">int</span> C[],<span class="keyword">int</span> la, <span class="keyword">int</span> lb, <span class="keyword">int</span> lc)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//非降序数组A,B前la,lb个元素合并到C 并且保持其次序</span></span><br><span class="line">    <span class="keyword">int</span> ia = <span class="number">1</span>, ib = <span class="number">1</span>, ic = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(ia &lt;= la &amp;&amp; ib &lt;= lb)</span><br><span class="line">        <span class="keyword">if</span>(A[ia]&lt;=B[ib])</span><br><span class="line">            C[ic++] = A[ia++];</span><br><span class="line">        <span class="keyword">else</span> </span><br><span class="line">            C[ic++] = B[ib++];</span><br><span class="line">        <span class="keyword">while</span>(ia &lt;= la)</span><br><span class="line">            C[ic++] = A[ia++];</span><br><span class="line">        <span class="keyword">while</span>(ib&lt;=lb)</span><br><span class="line">            C[ic++] = B[ib++];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>算法分析：</p>
+<p>对于A和B均是一遍扫描，整个时间复杂度为O(|A| + |B|)</p>
+<p>而归并排序中归并的两个字序列要放在同一个表A中，因此要通过元素下标参数对两个字表进行定界。</p>
+<p>通过三个参数low、mid、high来确定2个有序子序列。</p>
+<p>第一个子序列放在A[low~mid]</p>
+<p>第二个子序列放在A[mid+1~high]<br>此外，归并中要把归并后的元素放在一个临时表T中，T的大小与A相同归并完成后，再将T中的元素复制到A中。</p>
+<p>Merge函数需要4个参数：</p>
+<p>A[]存放元素序列 low序列第一个元素下标 high序列最后一个元素下标  mid划分点下标</p>
+<p>改造后的归并序列：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Merge</span><span class="params">(<span class="keyword">int</span> A[], <span class="keyword">int</span> low, <span class="keyword">int</span> mid, <span class="keyword">int</span> high)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> T[<span class="number">10005</span>];</span><br><span class="line">    <span class="keyword">int</span> i, j, k;</span><br><span class="line">    <span class="comment">//i作为low~mid的下标  j作为mid+1~high的下标 k作为T的下标</span></span><br><span class="line">    i = low;</span><br><span class="line">    k = low;</span><br><span class="line">    j = mid + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(i&lt;=mid &amp;&amp; j&lt;=high) &#123;</span><br><span class="line">        <span class="comment">//A两个子表都有元素</span></span><br><span class="line">        <span class="keyword">if</span>(A[i] &lt;= A[j]) &#123;<span class="comment">//A[i]较小</span></span><br><span class="line">            T[k] = A[i];</span><br><span class="line">            i++;</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            T[k] = A[j];</span><br><span class="line">            j++;</span><br><span class="line">        &#125;</span><br><span class="line">        k++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//处理一个表结束，另一个尚未结束的场景</span></span><br><span class="line">    <span class="keyword">while</span>(i&lt;=mid) &#123;</span><br><span class="line">        T[k] = A[i];</span><br><span class="line">        i++;</span><br><span class="line">        k++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(j&lt;=high) &#123;</span><br><span class="line">        T[k] = A[j];</span><br><span class="line">        j++;</span><br><span class="line">        k++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//复制回原表</span></span><br><span class="line">    <span class="built_in">memcpy</span>(A,T, <span class="keyword">sizeof</span>(T));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>自底向上</p>
+<p>·将原序列视为（划分为）n个有序子序列，子序列长度为1，每个子表只有一个元素；</p>
+<p>·当子序列长度小于N的时候，循环选择2个相邻有序子序列，归并</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Eric Cheng
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2019/12/20/DS-Notes-Paixu/" title="数据结构笔记——排序">http://yoursite.com/2019/12/20/DS-Notes-Paixu/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag"># 数据结构</a>
+          
+            <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag"># 学习笔记</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/20/DS-Notes-linear-list/" rel="next" title="数据结构笔记——线性表">
+                <i class="fa fa-chevron-left"></i> 数据结构笔记——线性表
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/12/20/DS-Notes-Search/" rel="prev" title="数据结构笔记——查找">
+                数据结构笔记——查找 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NzQ1Ny8yMzk1Nw=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/IMG_3227.JPG"
+                alt="Eric Cheng" />
+            
+              <p class="site-author-name" itemprop="name">Eric Cheng</p>
+              <p class="site-description motion-element" itemprop="description">Always Believe there are GREAT things ahead.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:examplechn@icloud.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/Sensente" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-copyright"></i>CSDN</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.facebook.com" target="_blank" title="FB Page">
+                      
+                        <i class="fa fa-fw fa-facebook"></i>FB Page</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ERIC CHENG   皖ICP备19023821号</span>
+
+  
+</div>
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+-->
+
+
+
+<!--网站访问人数-->
+<div class="powered-by">
+<i class="fa fa-user"></i><span id="busuanzi_container_site_uv">
+  <span id="busuanzi_value_site_uv"></span>
+</span>
+<!--网站访问次数-->
+<span class="post-meta-divider">|</span>
+<span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i>
+    <span id="busuanzi_value_site_pv"></span>
+</span>
+</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+</body>
+</html>
+
+
